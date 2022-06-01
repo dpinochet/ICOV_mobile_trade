@@ -1,0 +1,79 @@
+<!--
+  Generated template for the StoresPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Puntos de Venta</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-item>
+        <ion-card>
+          <ion-row no-padding>
+            <ion-col text-center>
+              <div class="photoImgCont">
+                <img src="{{ base64Image }}" class="round" width="50px"/>
+              </div>
+              <button ion-button color="secondary" icon-left (click)="openCamera()">
+                <ion-icon name="camera"></ion-icon> Punto de Venta
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-item>
+  <form>
+    <ion-item>
+
+      <ion-label floating color="primary"><ion-icon name="card"></ion-icon> Rut</ion-label>
+      <ion-input type="text" [(ngModel)]="modelPos.identification_business" name="identification_business" #identification_business="ngModel" [maxlength]="9"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating color="primary"><ion-icon name="home"></ion-icon> Razón Social - (Nombre)</ion-label>
+      <ion-input type="text" maxLength="70" [(ngModel)]="modelPos.name_business" name="name_business" #name_business="ngModel" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating color="primary"><ion-icon name="cog"></ion-icon> Giro</ion-label>
+      <ion-input type="text" maxLength="100" [(ngModel)]="modelPos.commercial_business" name="commercial_business" #commercial_business="ngModel"></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label floating color="primary" > <ion-icon name="cog"></ion-icon> Categoría</ion-label>
+      <!-- <ion-select  [(ngModel)]="category_select" multiple="false" okText="Seleccionar" cancelText="Cancelar"> -->
+      <ion-select  multiple="false" okText="Seleccionar" cancelText="Cancelar">
+        <div *ngFor="let item of subsidiary_categories">
+          <ion-option  *ngIf="item.id != 1" value="{{item.id}}" (ionSelect)="selectCategory($event, item)">{{item.description}}</ion-option>
+          <!-- <ion-option  value="{{item.id}}">{{item.description}}</ion-option> -->
+        </div>
+      </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label floating color="primary"><ion-icon name="pin"></ion-icon> Dirección</ion-label>
+      <ion-input id="txtHome" type="text" required [(ngModel)]="modelPos.address" name="address" #address="ngModel"></ion-input>
+    </ion-item>
+
+    <agm-map [latitude]="latitude" [longitude]="longitude" [mapDraggable]="false"   [scrollwheel]="false" [zoom]="zoom">
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="icon"></agm-marker>
+    </agm-map>
+
+    <p ion-text color="danger" *ngIf="modelPos.errors">ERRORES: {{ campo.errors | json}}</p>
+  </form>
+</ion-content>
+<ion-footer no-border>
+  <ion-toolbar class="subsidiaryToolbar">
+      <ion-icon name="checkmark-circle" (click)="createPOS()"></ion-icon>
+      <!-- <ion-icon name="checkmark-circle" (click)="test()">test</ion-icon> -->
+  </ion-toolbar>
+</ion-footer>

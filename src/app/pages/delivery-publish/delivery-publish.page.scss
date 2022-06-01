@@ -1,0 +1,67 @@
+page-delivery-publish {
+    .subsidiaryToolbar {
+        color: #32db64;
+        text-align: center;
+        font-size: 4.5em;
+    }
+    #subsidiaryToolbarIcon{
+        font-size: 0.5em;
+    }
+    .round{
+        border-radius: 50%;
+        width:60% !important;
+        }
+    .photoImgCont{
+
+    margin: 0 0 0 25% ;
+    }
+
+    .validate_subsidiary{
+      font-size: 0.5em;
+    }
+
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+
+    .alert-danger {
+      color: #a94442;
+      background-color: #f2dede;
+      border-color: #ebccd1;
+  }
+
+  .center-container {
+    width: 100%;
+    text-align: center
+  }
+
+  .card-background-page {
+
+    ion-card {
+      position: relative;
+      text-align: center;
+    }
+
+    .card-title {
+      position: absolute;
+      top: 36%;
+      font-size: 2.0em;
+      width: 100%;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .card-subtitle {
+      font-size: 1.0em;
+      position: absolute;
+      top: 52%;
+      width: 100%;
+      color: #fff;
+    }
+
+  }
+
+}

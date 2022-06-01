@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons ion-button menuToggle>
+          <button ion-button left menuToggle="menu">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title> Capacitaciones </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="content content-md">
+<div class="fixed-content" style="margin-top: 56px; margin-bottom: 55px;"></div>
+  <div class="scroll-content" >
+    <div _ngcontent-c0="" class="message-wrap">
+
+      <div *ngFor="let message of send_messages ">
+
+        <div *ngIf="message.channel == 2" >
+
+          <div class="" *ngIf="this.user != message.sender">
+
+            <div class="message left">
+              <img alt="" class="user-img" src="../../../assets/imgs/icov.png">
+              <div class="msg-detail">
+                  <div class="msg-info">
+                    <p> {{ message.sender }} </p>
+                    <p> {{ message.created_at | date:'dd/MM/yyyy HH:mm' }} </p>
+                  </div>
+                  <div class="msg-content">
+                    <span  class="triangle"></span>
+                    <p class="line-breaker "> {{ message.message }}</p>
+                  </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div *ngIf="this.user == message.sender">
+              <div class="message right">
+
+                  <img alt="" class="user-img" src="../../../assets/imgs/icov.png">
+                  <div class="msg-detail">
+                      <div class="msg-info">
+                        <p > {{ message.created_at | date:'dd/MM/yyyy HH:mm'}} </p>
+                      </div>
+                      <div class="msg-content">
+                        <span class="triangle"></span>
+                        <p class="line-breaker ">{{message.message}}</p>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer  style="height: 55px;">
+
+  <form  (ngSubmit)='submit()'>
+      <div _ngcontent-c0="" class="input-wrap">
+
+          <button class="button button-md button-clear button-clear-md">
+            <span class="button-inner"> <ion-icon name="happy"></ion-icon> </span>
+          </button>
+
+          <ion-input placeholder="Escriba su mensaje" name="message"
+           [(ngModel)]='message' value="{{message}}">
+         </ion-input>
+
+          <button class="button button-md button-clear button-clear-md">
+            <span class="button-inner"> <ion-icon name="send"></ion-icon> </span>
+          <div class="button-effect" ></div></button>
+
+      </div>
+  </form>
+
+</ion-footer>
+

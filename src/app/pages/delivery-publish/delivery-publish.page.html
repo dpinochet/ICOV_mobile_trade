@@ -1,0 +1,69 @@
+ <ion-content padding class="card-background-page">
+
+
+  <div *ngIf="id_subsidiary == 'null'">
+    <div class="alert alert-danger">
+      <strong>Precaución!</strong> No ha seleccionado una sucursal.
+    </div>
+  </div>
+
+  <div *ngIf="id_subsidiary != 'null'">
+    <!-- <button ion-button full (click)="registerVisit()">Registrar Visita</button> -->
+
+    <ion-item *ngFor="let image of allImages" >
+        <!-- <ion-card>
+          <ion-row no-padding>
+            <ion-col text-center>
+              <div class="photoImgCont">
+                <img src="{{ image }}" class="round" width="50px"/>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-card> -->
+
+        <ion-card >
+          <img src="{{ image.img }}"/>
+          <div class="card-title"> {{ image.name }} </div>
+          <!-- <div class="card-subtitle">41 Listings</div> -->
+        </ion-card>
+    </ion-item>
+<!--
+    <ion-card>
+      <img src="img/card-saopaolo.png"/>
+      <div class="card-title">São Paulo</div>
+      <div class="card-subtitle">41 Listings</div>
+    </ion-card> -->
+
+  <div class="center-container">
+    <button ion-button color="primary" icon-left (click)="openCamera()">
+      <ion-icon name="camera"></ion-icon> Trade
+    </button>
+  </div>
+
+  <ion-item>
+    <ion-label floating color="primary"><ion-icon name="calendar"></ion-icon> Nombre </ion-label>
+    <ion-input type="text" [(ngModel)]="modelDelivery.nameDeliveryPublish" name="nameDeliveryPublish" #nameDeliveryPublish="ngModel" [maxlength]="50"></ion-input>
+  </ion-item>
+  <br>
+</div>
+
+</ion-content>
+
+<!-- Footer with submit form trade button -->
+<ion-footer no-border>
+<ion-toolbar class="subsidiaryToolbar">
+
+  <ng-template
+    *ngIf="id_subsidiary == 'null';then showBlock; else notShowBlock">
+  </ng-template>
+
+  <ng-template #showBlock>
+  </ng-template>
+
+  <ng-template #notShowBlock>
+    <ion-icon name="checkmark-circle" color="primary" (click)="sendDeliveryPublish()"></ion-icon>
+
+  </ng-template>
+
+</ion-toolbar>
+</ion-footer>

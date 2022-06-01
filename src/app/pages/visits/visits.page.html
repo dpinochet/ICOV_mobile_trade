@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar color='primary'>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Reposiciones</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <!-- <form (ngSubmit)="callSubmit()" [FormGroup]="form"> -->
+    <form (ngSubmit)="callSubmit()" >
+      <ion-item>
+        <ion-label>Fecha de reposición</ion-label>
+        <ion-datetime displayFormat="DD-MM-YYYY" cancelText="Cancelar" [(ngModel)]="date_start"
+        doneText="Seleccionar" min="2018" name="date_start">
+        </ion-datetime>
+      </ion-item>
+
+      <div padding-horizontal>
+        <div class="form-error">{{form.errors}}</div>
+        <button ion-button full type="submit" [disabled]="date_start == ''">Obtener Reposiciones</button>
+      </div>
+
+    </form>
+    <br>
+    <!-- {{ allStores | json }} -->
+    <div *ngFor="let item of allStores" >
+      <div *ngIf="item.data != undefined" >
+
+      <ul *ngIf="item.data.length > 0" > <b style=""> {{ item.stores }} ({{ item.data.length }}) </b> </ul>
+      <div *ngIf="item.data.length > 0" >
+
+        <ion-list>
+          <ion-item *ngFor="let subsidiary of item.data">
+            <ion-thumbnail item-start>
+              <img src="{{ subsidiary.data2.photo }}">
+            </ion-thumbnail>
+            <h2>{{ subsidiary.subsidiary }}</h2>
+            <p>{{ subsidiary.data2.date | date:'dd/MM/yyyy HH:mm' }}</p>
+            <button ion-button clear item-end (click)="modalPhoto(subsidiary.data2.photo)" > Ver </button>
+          </ion-item>
+        </ion-list>
+      </div>
+
+        <!-- <ul *ngFor="let subsidiary of item.data" >
+          <ul> {{ subsidiary.subsidiary }} | {{ subsidiary.data2.date | date:'dd/MM/yyyy HH:mm' }} </ul>
+        </ul> -->
+      </div>
+    </div>
+  </ion-list>
+
+
+
+</ion-content>
+

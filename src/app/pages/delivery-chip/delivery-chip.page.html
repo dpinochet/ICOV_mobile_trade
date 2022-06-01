@@ -1,0 +1,98 @@
+<ion-content>
+  <div  *ngIf="modal == true">
+  
+    <ion-navbar color="primary">
+        <ion-buttons left>
+          <button ion-button icon-only (click)="go_home()">
+            <ion-icon color="light" name="arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-title (click)="go_home()">Volver</ion-title>
+      </ion-navbar>
+  
+    </div>
+  
+    <div *ngIf="id_subsidiary == 'null'">
+      <div class="alert alert-danger">
+        <strong>Precaución!</strong> No ha seleccionado una sucursal.
+      </div>
+    </div>
+  
+  
+  <div *ngIf="id_subsidiary != 'null'">
+  
+    <ion-row>
+      <ion-col >
+        <ion-item>
+            <!-- <ion-label><p>Entregas para: {{title_subsidiary}}</p></ion-label> -->
+            <ion-label><p>Entregas para: {{title_subsidiary}}</p></ion-label>
+  
+          </ion-item>
+      </ion-col>
+      </ion-row>
+  
+  
+      <ion-row>
+        <ion-col >
+          <ion-item>
+              <ion-label><h2>Concesión</h2></ion-label><ion-toggle [(ngModel)]="consecion"></ion-toggle>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+  </div>
+  
+      <!-- Tabla de Chip's-->
+  <ion-row>
+    <ion-col>
+        <ion-card no-padding>
+            <ion-item-divider *ngIf="front_chips_array.length > 0">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col>
+                      <b>{{cont}}</b>
+                      </ion-col>
+                      <ion-col>
+                        <b>N° código de barra</b>
+                      </ion-col>
+                      <ion-col>
+                        <b>Estado</b>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+            </ion-item-divider>
+  
+          <ion-item *ngFor="let chip of front_chips_array" class="">
+              <ion-item >
+                <ion-avatar item-start>
+                  <img src="../../../assets/images/barcode.png" class="round" width="25px" />
+                </ion-avatar>
+                <h2>{{ chip.code }}</h2>
+                <ion-icon [name]="chip.icon" [style]="color" item-end></ion-icon>
+              </ion-item>
+          </ion-item>
+  
+  
+        </ion-card>
+    </ion-col>
+  </ion-row>
+  </ion-content>
+  
+  <!-- Footer with scanchip button -->
+  <ion-footer no-border>
+    <ion-toolbar class="subsidiaryToolbar">
+  
+      <ng-template
+        *ngIf="id_subsidiary == 'null';then showBlock; else notShowBlock">
+      </ng-template>
+  
+      <ng-template #showBlock>
+        <!-- <p class="validate_subsidiary">No ha seleccionado una sucursal</p> -->
+      </ng-template>
+  
+      <ng-template #notShowBlock>
+        <ion-icon name="barcode" (click)="scanChips()"></ion-icon>
+      </ng-template>
+  
+    </ion-toolbar>
+  </ion-footer>
+  

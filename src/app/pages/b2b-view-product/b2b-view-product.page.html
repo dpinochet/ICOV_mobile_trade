@@ -1,0 +1,195 @@
+<!--
+  Generated template for the B2bViewProductPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header no-border>
+  <ion-toolbar color='violet'>
+    <ion-buttons slot="start" >
+      <ion-button  (click)="goBack()" >
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{subsidiary?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content style="background:#F5F5F5" class="ion-padding">
+
+
+  <div *ngIf="loading" style="text-align:center">
+
+    <h3 style="margin-block-start: 10em;text-align: center;color:#757575">
+      Cargando productos...
+    </h3>
+
+    <ion-spinner name="bubbles"></ion-spinner>
+
+  </div>
+
+  <div *ngIf="!loading">
+
+
+
+
+
+    <div *ngIf="categorias_productos?.length==0">
+      <h3 style="margin-block-start: 10em;text-align: center;color:#616161">Sin productos para esta marca</h3>
+    </div>
+
+
+    <div *ngIf="categorias_productos?.length>0">
+
+      <form [formGroup]="formGroupSearch">
+        <ion-searchbar formControlName="search" (click)="buscarProducto()"></ion-searchbar>
+      </form>
+
+      <ion-list>
+        <ion-scroll scrollY="true" style="height:100vh;">
+
+          <div *ngIf="temporal_product_item!=null">
+
+            <div *ngFor="let producto of temporal_product_item;let pro=index">
+              <ion-item-sliding #item>
+                <ion-item [ngStyle]="{'background-color': producto?.color}">
+                  <ion-avatar item-start style="margin-left:1em !important; margin-right:1em !important;">
+                    <img [src]="producto?.product_photo">
+                  </ion-avatar>
+                  <h3 style="color:#37474F">{{producto?.product_description}}</h3>
+                  <p>SKU: {{producto?.idsku}}</p>
+                  <p>Codigo de barra: {{producto?.bar_code}}</p>
+                  <p>fecha ultimo b2b: {{parse_fecha_b2b(producto?.last_b2b)}} </p>
+                  <p>Ventas: {{producto?.sales}}</p>
+                  <p>Stock: {{producto?.stock}}</p>
+                  <p>Precio: {{producto?.value}}</p>
+                </ion-item>
+                <!-- <ion-item-options side="left">
+                      <button ion-button (click)="favorite(item)">Favorite</button>
+                      <button ion-button color="danger" (click)="share(item)">Share</button>
+                    </ion-item-options> -->
+
+                <!--<ion-item-options side="start">
+                  <ion-button *ngIf="producto?.color==='#FCE4EC'" ion-button
+                    (click)="registrarImagenLowStockFilter(producto)">
+                    <ion-icon name="camera"></ion-icon>
+                  </ion-button>
+                  <ion-button *ngIf="producto?.color==='#CCFF90'" ion-button>
+                    <ion-icon name="checkmark"></ion-icon>
+                  </ion-button>
+                </ion-item-options>-->
+              </ion-item-sliding>
+            </div>
+            <br />
+            <button ion-button block clear (click)="getCategoriaProductos()">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+ 
+
+          </div>
+
+          <div *ngIf="temporal_product_item==null">
+
+            <div *ngFor="let categoria of categorias_productos;let cat_pro=index">
+
+              <accordion>
+                <accordion-group [heading]="categoria?.category" [isOpened]="false">
+               
+                  <div *ngIf="categoria?.product?.length>0">
+                    <div *ngFor="let producto of categoria.product;let pro=index">
+  
+                      <ion-item-sliding #item>
+                        <ion-item [ngStyle]="{'background-color': producto?.color}">
+                          <ion-avatar item-start style="margin-left:1em !important; margin-right:1em !important;">
+                            <img [src]="producto?.product_photo">
+                          </ion-avatar>
+                          <ion-label>
+                          <h3 style="color:#37474F">{{producto?.product_description}}</h3>
+                          <p>SKU: {{producto?.idsku}}</p>
+                          <p>Codigo de barra: {{producto?.bar_code}}</p>
+                          <p>fecha ultimo b2b: {{parse_fecha_b2b(producto?.last_b2b)}}</p>
+                          <p>Ventas: {{producto?.sales}}</p>
+                          <p>Stock: {{producto?.stock}}</p>
+                          <p>Precio: {{producto?.value}}</p>
+                           </ion-label>
+                        </ion-item> 
+                        <!-- <ion-item-options side="left">
+                                        <button ion-button (click)="favorite(item)">Favorite</button>
+                                        <button ion-button color="danger" (click)="share(item)">Share</button>
+                                      </ion-item-options> -->
+  
+                        <!--<ion-item-options side="start">
+                          <ion-button *ngIf="producto?.color==='#FCE4EC'" ion-button
+                            (click)="registrarImagenLowStock(producto,cat_pro,pro)">
+                            <ion-icon name="camera"></ion-icon>
+                          </ion-button>
+                          <ion-button *ngIf="producto?.color==='#CCFF90'" ion-button>
+                            <ion-icon name="checkmark"></ion-icon>
+                          </ion-button>
+                        </ion-item-options>-->
+                      </ion-item-sliding>
+  
+                      <!-- <ion-item>
+                                  <ion-avatar item-start style="margin-left:1em !important; margin-right:1em !important;">
+                                    <img [src]="producto?.product_photo">
+                                  </ion-avatar>
+                                  <!-- <h2>title</h2> -->
+                      <!-- <h3>{{producto?.product_description}}</h3>
+                                  <p>SKU: {{producto?.idsku}}</p>
+                                  <p>Codigo de barra: {{producto?.bar_code}}</p> -->
+                      <!-- <p>fecha ultimo b2b</p> -->
+                      <!-- <p>Ventas: {{producto?.sales}}</p>
+                                  <p>Stock: {{producto?.stock}}</p>
+                                  <p>Precio: {{producto?.value}}</p>
+                                </ion-item> -->
+                    </div>
+  
+                  </div>
+                  <div style="margin-left:auto !important; margin-right:auto !important"
+                    *ngIf="categoria?.productos?.length==0">
+                    <!-- <i class="material-icons">
+                                remove_shopping_cart
+                              </i>
+                              <p>Sin productos para esta categoria</p> -->
+                  </div>
+                  <!-- <ion-item>
+                            <ion-avatar item-start>
+                              <img [src]="subsidiary?.all.picture_business">
+                            </ion-avatar>
+                            <h2 style="color:#757575">{{product?.sales}}</h2>
+                            <h3 style="color:#757575">{{product?.stock}}</h3>
+                            <p style="color:#757575">{{product?.idsku}}.</p>
+                      
+                          </ion-item> -->
+
+                </accordion-group>  
+
+
+
+              </accordion>
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+          </div>
+
+        </ion-scroll>
+      </ion-list>
+
+    </div>
+
+  </div>
+
+</ion-content>

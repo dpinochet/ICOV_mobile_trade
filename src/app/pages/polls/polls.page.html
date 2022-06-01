@@ -1,0 +1,35 @@
+<ion-content padding>
+
+  <ng-template *ngIf="id_subsidiary == 'null' || id_subsidiary == undefined ;then notShowBlock; else ShowBlock">
+  </ng-template>
+
+  <ng-template #notShowBlock>
+    <div class="alert alert-danger">
+      <strong>Precaución!</strong> No ha seleccionado una sucursal.
+    </div>
+
+  </ng-template>
+
+  <ng-template #ShowBlock>
+
+    <div *ngIf="this.polls_list.length > 0">
+
+    <ion-item *ngFor="let item of items; let i = index">
+       <ion-label>{{item.question}}</ion-label>
+       <ion-checkbox [(ngModel)]='item.ischecked'></ion-checkbox>
+     </ion-item>
+    <!-- <button ion-button color="secondary"  (click)="answerPolls()"> -->
+    <button ion-button (click)="answerPolls()" >Responder encuesta</button>
+  </div>
+  <div *ngIf="this.polls_list.length == 0">
+    <div class="alert alert-danger">
+      <strong>Precaución!</strong> No existe encuesta vigente.
+    </div>
+  </div>
+
+  </ng-template>
+  <!-- <button ion-button color="secondary"  (click)="answerPolls()"> -->
+
+
+</ion-content>
+

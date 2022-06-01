@@ -1,0 +1,50 @@
+page-delivery-chip {
+    .information{
+        color:orange;
+    }
+    .subsidiaryToolbar {
+        color: #32db64;
+        text-align: center;
+        font-size: 4.5em;
+    }
+    #subsidiaryToolbarIcon{
+        font-size: 0.5em;
+    }
+    h2{
+        color:orange;
+    }
+    .validate_subsidiary{
+      font-size: 0.5em;
+    }
+    .label {
+       margin: 0;
+    }
+
+    .item-inner {
+       padding-right: 0px!important;
+    }
+
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+
+    .alert-danger {
+      color: #a94442;
+      background-color: #f2dede;
+      border-color: #ebccd1;
+  }
+  
+}
+.label {
+   margin: 0;
+}
+
+ion-item.item.item-block.item-md {
+   padding-left: 1px!important;
+}
+ion-item.item.item-block.item-ios {
+   padding-left: 1px!important;
+}

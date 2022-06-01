@@ -1,0 +1,65 @@
+<ion-app>
+<ion-menu no-border  menuId="custom" contentId="main" swipeGesture="false"
+  style="background: #4e7a89;
+background: linear-gradient(to bottom right, #2e3441 30%, #4e7a89 100%);overflow-x:hidden; overflow-y:hidden; overflow-x: hidden">
+ <ion-content>
+  <ion-list style="background:transparent !important" >
+    <ion-item  style="color:rgb(255, 255, 255);margin-bottom: 2em;" lines="none">
+      <ion-avatar item-start style="margin-right: 1em;">
+        <img [src]="user?.photo">
+      </ion-avatar>
+      <ion-label>
+        <h2 style="color:rgb(255, 255, 255) !important">{{user?.first_name }} {{user?.last_name}}</h2>
+        <p style="color:rgb(255, 255, 255)">{{user?.email}}</p>
+        <p style="color:rgb(255, 255, 255)">{{user?.phone}}</p>
+      </ion-label>      
+    </ion-item>
+    
+   <!-- <ion-item style="background:transparent !important">
+      <button  style="background:transparent !important;color:rgb(255, 255, 255)" *ngIf="!menutwo" (click)="menutwo=true" ion-button clear icon-only item-end
+        icon-end>
+        
+
+      </button>
+      <button  style="background:transparent !important;color:rgb(255, 255, 255)" *ngIf="menutwo" (click)="menutwo=false" ion-button clear icon-only item-end
+        icon-end>
+        <ion-icon name="arrow-dropup"></ion-icon>
+
+      </button>
+    </ion-item>-->
+    <ion-menu-toggle auto-hide="true" *ngFor="let p of pages" >
+    <ion-item  >
+      <ion-avatar slot="start" style="margin: 8px 16px 0px 0px;">
+        <ion-icon style="color:rgb(255, 255, 255);font-size: 140%;
+        height: 80%;" [name]="p.icon" ></ion-icon>
+      </ion-avatar>
+      <button style="background:transparent !important" menuClose ion-item (click)="openPage(p)" >
+        <p style="color:rgb(255, 255, 255)"> {{p.title}} </p>
+      </button>
+    </ion-item>
+    </ion-menu-toggle>
+
+    <ion-item style="margin-top: 30px;">
+      <ion-avatar slot="start" style="margin: 8px 16px 0px 0px;">
+        <ion-icon style="color:rgb(255, 255, 255);font-size: 140%;
+        height: 80%;" name="log-out" ></ion-icon>
+      </ion-avatar>
+      <button  style="background:transparent !important" menuClose ion-item (click)="logout()">
+        <p style="color:rgb(255, 255, 255)">Cerrar sesión</p>
+    
+      </button>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>
+  
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
+
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>
+
+

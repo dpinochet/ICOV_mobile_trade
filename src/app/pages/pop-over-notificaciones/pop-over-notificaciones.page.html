@@ -1,0 +1,123 @@
+<!--
+  Generated template for the PopOverNotificacionesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+
+
+
+<ion-header no-border>
+  <ion-toolbar color='violet'>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" >
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Notificaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <div *ngIf="incidencias.length>0">
+
+
+    <accordion>
+      <accordion-group heading="Incidencias" [isOpened]="false">
+
+
+        <div *ngFor="let incidencia of incidencias">
+
+
+
+          <ion-item (click)="goIncidencias()">{{incidencia?.message}}</ion-item>
+
+
+
+        </div>
+
+      </accordion-group>
+    </accordion>
+  </div>
+
+
+
+
+
+  <div *ngIf="capacitaciones.length>0">
+
+
+    <accordion>
+      <accordion-group heading="Capacitación" [isOpened]="false">
+
+
+        <div *ngFor="let capacitacion of capacitaciones">
+
+
+
+          <ion-item (click)="goCapacitacion()">{{capacitacion?.message}}</ion-item>
+
+
+
+        </div>
+
+      </accordion-group>
+    </accordion>
+  </div>
+
+
+
+
+  <div *ngIf="promociones.length>0">
+
+
+    <accordion>
+      <accordion-group heading="Promoción" [isOpened]="false">
+
+
+        <div *ngFor="let promocion of promociones">
+
+
+
+
+          <ion-item (click)="goPromociones()">
+            <p>{{promocion?.title}}</p>
+            <h5>
+              {{promocion?.message}}
+            </h5>
+          </ion-item>
+
+
+
+        </div>
+
+      </accordion-group>
+    </accordion>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ion-content>

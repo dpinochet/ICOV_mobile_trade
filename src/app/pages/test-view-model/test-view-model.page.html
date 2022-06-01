@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color='primary'>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Visitas</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <!-- <form (ngSubmit)="callSubmit()" [FormGroup]="form"> -->
+    <form (ngSubmit)="callSubmit()" >
+      <ion-item>
+        <ion-label>Fecha inicio</ion-label>
+        <ion-datetime displayFormat="DD-MM-YYYY" cancelText="Cancelar" [(ngModel)]="date_start"
+        doneText="Seleccionar" min="2018" name="date_start">
+        </ion-datetime>
+      </ion-item>
+
+      <div padding-horizontal>
+        <!-- <div class="form-error">{{form.errors}}</div> -->
+        <button ion-button full type="submit" [disabled]="date_start == ''">Obtener Reporte</button>
+      </div>
+
+    </form>
+    <!-- {{ arrayGrouped | json }} -->
+    <div *ngFor="let item of arrayGrouped" >
+      <ul> <b>{{ item.name }} </b></ul>
+      <ul> <b>{{ item.img }} </b></ul>
+      <div *ngFor="let trade of item" >
+        <ul> {{ item.length }} </ul>
+        <ul> {{ trade.name_business }} </ul>
+        <ul> {{ trade.subsidiary_publish__created_at }}</ul>
+      </div>
+    </div>
+  </ion-list>
+
+{{ testArray | json}}
+<button type="button" name="button" (click)="pushArray()">Push Array</button>
+
+</ion-content>
+

@@ -1,0 +1,121 @@
+<!--
+  Generated template for the CapacitacionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header no-border slot="fixed">
+  <ion-toolbar color='violet'>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false" ></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Capacitaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding"  >
+
+
+  <!-- [class.left]=" msg.userId === toUser.id "
+    [class.right]=" msg.userId === user.id " -->
+
+<!-- 
+  <div class="message-wrap">
+
+    <div *ngFor="let msg of listCapacitados" class="message">
+
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+
+            <img class="user-img" src="assets/imgs/chat_local.png" alt="">
+
+          </ion-col>
+          <ion-col col-9>
+            <div class="msg-info">
+              <p>
+                {{msg?.user_created}}&nbsp;&nbsp;&nbsp;{{msg?.created_at}}</p>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+      <br />
+      <div class="msg-detail">
+
+        <div class="msg-content">
+    
+
+          <p style="color:gray">{{msg?.message}}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+ -->
+
+<!-- nuevo chat mensajes style -->
+ 
+
+<div *ngFor="let capacitado of listCapacitados" id="chatRoom">
+  <div *ngIf="capacitado?.recipient!=userData?.email"  class="container">
+      <div class="right">
+          <strong><p>{{capacitado?.user_created}}</p></strong>
+      </div>
+      <p>{{capacitado?.message}}</p>
+      <span class="time-right">{{capacitado?.created_at}}</span>
+    </div>
+    <div  *ngIf="capacitado?.recipient===userData?.email"  class="container darker ">
+        <div>
+            <strong><p>{{capacitado?.user_created}}</p></strong>
+        </div>
+      <p>{{capacitado?.message}}</p>
+      <span class="time-right">{{ changeDate(capacitado?.created_at)}}</span>
+    </div>
+</div>
+
+
+
+
+
+
+</ion-content>
+<ion-footer no-border  style="background: white;">
+  
+  <div class="input-wrap">
+    <!-- <button ion-button clear icon-only item-right (click)="switchEmojiPicker()">
+        <ion-icon name="md-happy"></ion-icon>
+      </button> -->
+      <ion-grid>
+        <ion-row>
+          <ion-col col-11>
+            <form [formGroup]="messageForm">
+                <ion-textarea formControlName="message" placeholder="Registre su mensaje"></ion-textarea>
+              <!-- <textarea formControlName="message">
+              </textarea> -->
+        
+            </form>
+
+          </ion-col>
+          <ion-col col-1 class="ion-text-end">
+              <!-- <button ion-button clear icon-only item-right  (click)="cargarPhoto()">
+                  <ion-icon *ngIf="photo==null" name="camera"></ion-icon>
+                  <ion-icon *ngIf="photo!=null" style="color:#18FFFF" name="camera"></ion-icon>
+                </button> -->
+            
+            <ion-button fill="clear"  [disabled]="!messageForm?.valid" (click)="enviarMensaje()">
+              
+            
+              <ion-icon name="send" slot="icon-only" color="violet"></ion-icon>
+            </ion-button>
+          
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </div>
+  <!-- <emoji-picker [(ngModel)]="editorMsg"></emoji-picker> -->
+</ion-footer>

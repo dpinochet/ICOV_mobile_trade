@@ -1,0 +1,37 @@
+<ion-content class="ion-padding" id="loginCont">
+  <img src="../../../assets/imgs/trade.png" alt="">
+
+
+  <div center style="border:none !important;margin:none !important;margin-block-start: 7em;">
+    <ion-list>
+      <ion-item style="margin-bottom: 1em;">
+        <ion-label position="floating" color="violet">
+          <ion-icon name="mail"></ion-icon> Correo
+        </ion-label>
+        <!--  <ion-input type="email" maxLength="30" [(ngModel)]="user" name="user" #field="ngModel" required></ion-input> -->
+        <ion-input type="email" [(ngModel)]="modelAuth.email" name="email" #email="ngModel"  required maxlength="50">
+        </ion-input>
+       <!-- <p ion-text style="color: red;" *ngIf="email.errors">Ingrese un email</p>-->
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="violet">
+          <ion-icon name="finger-print"></ion-icon> Contraseña
+        </ion-label>
+        <!-- <ion-input type="password" maxLength="10" [(ngModel)]="pass" name="pass" #pass="ngModel" required></ion-input> -->
+          <ion-input type="password" [(ngModel)]="modelAuth.password" name="password" #password="ngModel" required
+          maxlength="10"></ion-input>
+       <!-- <p ion-text style="color: red;" *ngIf="password.errors">Ingrese una password</p>-->
+       
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <ion-button color="violet" expand="block" (click)="singUp()">Aceptar</ion-button>
+    </div>
+  </div>
+
+  <a (click)="recoverPassword()">
+    <p>¿Olvidaste la contraseña?</p>
+  </a>
+  <br/>
+  <ion-note >Versión 0.0.17</ion-note>
+</ion-content>

@@ -1,0 +1,96 @@
+page-be-to-be {
+    background: #E0E0E0;
+    ion-content{
+        background: #E0E0E0;
+    }
+
+    .image-container {
+        min-height: 200px;
+        background-size: cover;
+    }
+ 
+    @media (min-width: 0px) {
+        .images {
+            column-count: 2;
+        }
+    }
+ 
+    @media (min-width: 420px) {
+        .images {
+            column-count: 3;
+        }
+    }
+ 
+    @media (min-width: 720px) {
+        .images {
+            column-count: 4;
+        }
+    }
+ 
+    .one-image {
+        margin: 2px;
+    }
+
+    ion-scroll { 
+        height: 100px;
+        }
+
+
+    
+}
+
+body > ion-app > ng-component > ion-nav > page-be-to-be > ion-content > div.scroll-content > ion-card:nth-child(1) > ion-card-footer > form > ion-item > div.item-inner{
+   
+
+
+}
+ion-scroll { 
+    height: 100px;
+    }
+
+.gallery-modal{
+    background:  rgba(0, 0, 0, 0.7) !important;
+}
+
+.info-punto-venta-style{
+    position: relative !important;
+    top:10px !important;
+}
+
+body > ion-app > ng-component > ion-nav > page-be-to-be > ion-content > div.scroll-content > ion-slides > div > div.swiper-wrapper > ion-slide.info-punto-venta-style.swiper-slide.swiper-slide-active > div > ion-card{
+    position: absolute !important;
+    top:0px !important;
+}
+
+body > ion-app > ng-component > ion-nav > page-be-to-be > ion-content > div.scroll-content > ion-slides > div > div.swiper-wrapper > ion-slide.swiper-slide.swiper-slide-active > div > ion-card{
+    position: absolute !important;
+    top:0px !important;
+}
+
+
+.no-product-style{
+    margin-right: auto;
+    margin-left: auto;
+    color:#BDBDBD;
+}
+
+.icon-button-style{
+    margin-inline-end: 1em;
+}
+
+.scroll-content {
+    touch-action: pan-x pan-y !important;
+    * {
+        touch-action: pan-x pan-y !important;
+    }
+}
+
+
+
+.loading-style{
+    margin-right: auto;
+    margin-left: auto;
+    right: auto;
+    left: auto;
+    margin-block-start: 50%;
+}

@@ -1,0 +1,83 @@
+<ion-header no-border>
+  <ion-toolbar color='violet'>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false" (click)="openCustom()"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end" >
+      <ion-button  (click)="presentPopoverNotificacion()" >
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge item-end color="violet">{{notificaciones?.length}}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Góndola</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+ <!--<app-map></app-map>
+  <page-maps></page-maps>-->
+  <!--<app-maps></app-maps>-->
+  <!-- <ion-tabs tabsPlacement="bottom">
+      <!-- <ion-tab [root]="tabHome" tabTitle="Home" tabIcon="home" [rootParams]="param_from_home"></ion-tab> -->
+      <!-- <ion-tab [root]="tabHome" tabTitle="Inicio" tabIcon="home" [rootParams]="dataDelivery"></ion-tab> -->
+      <!-- <ion-tab [root]="tabChip"  tabTitle="Chips"  tabIcon="barcode" [rootParams]="dataDelivery"></ion-tab> -->
+      <!-- <ion-tab [root]="tabPublish" tabTitle="Trade"  tabIcon="apps" [rootParams]="dataDelivery" ></ion-tab> -->
+      <!-- <ion-tab [root]="tabConcession" tabTitle="Concesión"  tabIcon="logo-usd" [rootParams]="dataDelivery" ></ion-tab> -->
+      <!-- <ion-tab [root]="tabPoll" tabTitle="Encuesta"  tabIcon="list-box" [rootParams]="dataDelivery" ></ion-tab> -->
+  <!-- </ion-tabs> -->
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="doRefresh($event)" color='violet'>
+      <ion-icon name="reload-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+<agm-map *ngIf="displaymap" [latitude]="latitude" [longitude]="longitude" [mapDraggable]="true" [scrollwheel]="true" [zoom]="zoom" >
+<!-- <agm-map *ngIf="display_map" [latitude]="51.678418" [longitude]="7.809007" [mapDraggable]="true" [scrollwheel]="true" [zoom]="zoom" >-->
+<agm-marker-cluster  >
+  <!-- <agm-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="iconMe"> -->
+  <agm-marker>
+      <agm-info-window>
+        <!-- <strong>{{ Me }}</strong> -->
+      </agm-info-window>
+    </agm-marker>
+  <!-- <agm-marker [latitude]="marker.lat" [longitude]="marker.lng" [iconUrl]="icon" (markerClick)="markerClick(marker)"> -->
+  <!-- <agm-marker [latitude]="marker.lat" [longitude]="marker.lng" [iconUrl]="'assets/imgs/'+marker.tasa356+'.png'" (markerClick)="markerClick(marker)"> -->
+  <agm-marker *ngFor="let marker of markers" [latitude]="marker.lat" [longitude]="marker.lng" [iconUrl]="marker.photo" (markerClick)="markerClick(marker)">
+    <agm-info-window>
+      <strong>{{marker.title }}</strong>
+    </agm-info-window>
+  </agm-marker>
+</agm-marker-cluster>
+</agm-map>
+
+
+
+
+<!-- <ion-searchbar [(ngModel)]="searchTerm" placeholder="Buscar" [formControl]="searchControl" class="searchbar"></ion-searchbar> -->
+
+<!-- <div class="row">
+<ion-input type="text" [(ngModel)]="searchTerm" placeholder="Buscar" [formControl]="searchControl" class="searchbar"></ion-input>
+<button ion-button round style="top: 7px;">X</button>
+</div> -->
+
+
+<!-- aqui va el mapa -->
+
+
+
+
+<ion-list *ngIf="subsidiary_list">
+  <!-- <ion-list-header>
+    Puntos de venta cercanos:
+  </ion-list-header> -->
+
+    <button ion-item *ngFor="let item of filtered_items" (click)="subsidiarySelected(item.id, item.title)">
+      <!-- {{ item.title }}  <span item-end>{{item.tasa356}}</span> -->
+      {{ item.title }}  <span item-end> <img src="../../../assets/imgs/{{item.tasa356}}.png" alt="" width="20px"> </span>
+    </button>
+</ion-list>
+
+</ion-content>
+ 

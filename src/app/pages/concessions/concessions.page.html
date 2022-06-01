@@ -1,0 +1,57 @@
+<ion-content padding>
+
+  <ng-template
+    *ngIf="id_subsidiary == 'null' || id_subsidiary == undefined ;then showBlock; else notShowBlock">
+  </ng-template>
+
+  <ng-template #showBlock>
+    <!-- <p class="validate_subsidiary">No ha seleccionado una sucursal</p> -->
+    <div class="alert alert-danger">
+      <strong>Precaución!</strong> No ha seleccionado una sucursal.
+    </div>
+  </ng-template>
+<div class="">
+  <!-- {{total_concessions}} -->
+</div>
+  <ng-template #notShowBlock>
+    <!-- <p>concesiones: {{total_concessions}}</p> -->
+    <!-- <ion-card> -->
+    <div *ngIf="total_concessions > 0 && total_concessions != {}">
+
+        <ion-item>
+            <h1>Concesiones</h1>
+            <p>{{total_concessions}}</p>
+        </ion-item>
+    <!-- </ion-card> -->
+
+
+      <form (ngSubmit)="charge_concession()" [formGroup]="form">
+
+  		      <ion-list>
+  						<ion-item>
+  				 		 <ion-label floating color="primary">
+  				 			<ion-icon name="person"></ion-icon>     Concesiones a cobrar</ion-label>
+  				 		 <ion-input type="number" max="2" formControlName="discount"></ion-input>
+  				 	 </ion-item>
+
+  					</ion-list>
+
+
+  					<div padding-horizontal>
+  						<div class="form-error">{{form.errors}}</div>
+  						<button ion-button full type="submit" [disabled]="!form.valid">Cobrar</button>
+  					</div>
+
+  		</form>
+    </div>
+
+<div *ngIf="total_concessions == 0 || total_concessions == {}">
+  <div class="alert alert-danger">
+    <strong>Precaución!</strong> No hay concesiones para este punto de venta.
+  </div>
+</div>
+  </ng-template>
+
+
+</ion-content>
+

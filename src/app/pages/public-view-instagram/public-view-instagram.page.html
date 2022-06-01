@@ -1,0 +1,85 @@
+<!--
+  Generated template for the PublicViewInstagramPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header color='primary' no-border>
+
+  <ion-navbar color='primary'>
+    <ion-title>Publicar En Instagram</ion-title>
+
+    <!-- <button ion-button item-end outline  (click)="publicarInstagram()">
+     Publicar
+   </button> -->
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-card>
+        <img *ngIf="img!=null" [src]="img"/>
+        <ion-card-content>
+          <ion-card-title>
+            {{publicacionForm.value.caption}}
+            </ion-card-title>
+            <ion-list>
+
+                <!-- <img *ngIf="img!=null" [src]="img"> -->
+            
+                <form [formGroup]="publicacionForm">
+                  <ion-item>
+                    <ion-label fixed>Titulo Imagen</ion-label>
+                    <ion-textarea formControlName="caption"></ion-textarea>
+                  </ion-item>
+            
+                </form>
+              </ion-list>
+        </ion-card-content>
+        <ion-row>
+            <ion-col>
+                <button (click)="subirImagen()" ion-button icon-start clear small>
+                    <ion-icon name="camera"></ion-icon>
+                    <!-- <div>12 Likes</kdiv> -->
+                  </button>
+            </ion-col>
+            <ion-col>
+              <!-- <button ion-button icon-start clear small>
+                <ion-icon name="text"></ion-icon>
+                <div>4 Comments</div>
+              </button> -->
+            </ion-col>
+            <ion-col align-self-center text-center>
+              <!-- <ion-note>
+                11h ago
+              </ion-note> -->
+              <button (click)="publicarInstagram()" ion-button icon-start clear small>
+                  <!-- <ion-icon name="camera"></ion-icon> -->
+                  <ion-icon name="done-all"></ion-icon>
+                  <!-- <div>12 Likes</kdiv> -->
+                </button>
+            </ion-col>
+          </ion-row>
+      </ion-card>
+<!-- 
+  <ion-list>
+
+    <img *ngIf="img!=null" [src]="img">
+
+    <form [formGroup]="publicacionForm">
+      <ion-item>
+        <ion-label fixed>Titulo Imagen</ion-label>
+        <ion-textarea formControName="caption"></ion-textarea>
+      </ion-item>
+
+    </form>
+  </ion-list>
+
+  <ion-row>
+    <ion-col>
+      <button  (click)="subirImagen()" ion-button block>Subir imagen</button>
+      
+    </ion-col>
+  </ion-row> -->
+
+</ion-content>
