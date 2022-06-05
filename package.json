@@ -70,6 +70,7 @@
     "jetifier": "^2.0.0",
     "moment": "^2.29.1",
     "ngx-accordion": "0.0.17",
+    "org.apache.cordova.geolocation": "^0.3.6",
     "phonegap-plugin-barcodescanner": "^8.1.0",
     "phonegap-plugin-multidex": "^1.0.0",
     "phonegap-plugin-push": "^2.3.0",

@@ -400,6 +400,9 @@ export class HomePage implements OnInit {
       console.log(position);
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
+
+      this.latitude = -33.4403959;
+      this.longitude = -70.6340178;
       this.zoom = 15;
       this.dataDelivery.user = this.base.getDataUser();
       this.Me = this.base.getDataUser();
@@ -440,6 +443,7 @@ export class HomePage implements OnInit {
       data => {
 
         let data_array = Object.keys(data);
+        console.log("data_array: " + data_array);
         let data_length: number = data_array.length;
         console.log('get-subsidiary: ', data);
         if (data_length >= 15) {

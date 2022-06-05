@@ -47,6 +47,8 @@ export class PosServicesService {
    */
    getNearPos(lat: number, lng: number): Observable<any> {
      let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
+     console.log("URL1 = " + this.url + 'subsidiary/?lat=' + lat + '&lng=' + lng);
+
      return this.http.get(this.url + 'subsidiary/?lat=' + lat + '&lng=' + lng, { headers: headers }).pipe(
        map(this.base.extractData),
        catchError(this.base.handleError));

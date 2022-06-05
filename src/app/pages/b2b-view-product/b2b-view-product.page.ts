@@ -75,6 +75,43 @@ export class B2bViewProductPage implements OnInit {
     return moment(fecha).format('YYYY-MM-DD')
   }
 
+
+
+
+async editaStock(sku:string) {
+  const alert = await this.alertCtrl.create({
+    cssClass: 'my-custom-class',
+    header: 'Actualizar Stock: ',
+    inputs: [
+      {
+        name: 'stock',
+        type: 'number',
+        placeholder: 'Ingrese nuevo stock'
+      },
+      
+    ],
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          console.log('Confirm Cancel');
+        }
+      }, {
+        text: 'Guardar',
+        handler: () => {
+          console.log('Confirm Ok');
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+
+
   async registrarImagenLowStock(producto, cat_pro, prod) {
     console.log('producto-low: ', producto);
     /*this.camera.getPicture(

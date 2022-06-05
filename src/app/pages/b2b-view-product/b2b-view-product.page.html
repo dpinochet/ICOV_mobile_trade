@@ -63,7 +63,7 @@
                   <p>Codigo de barra: {{producto?.bar_code}}</p>
                   <p>fecha ultimo b2b: {{parse_fecha_b2b(producto?.last_b2b)}} </p>
                   <p>Ventas: {{producto?.sales}}</p>
-                  <p>Stock: {{producto?.stock}}</p>
+                  <p>Stock: {{producto?.stock}} <ion-icon name="create-outline"></ion-icon></p>
                   <p>Precio: {{producto?.value}}</p>
                 </ion-item>
                 <!-- <ion-item-options side="left">
@@ -111,7 +111,7 @@
                           <p>Codigo de barra: {{producto?.bar_code}}</p>
                           <p>fecha ultimo b2b: {{parse_fecha_b2b(producto?.last_b2b)}}</p>
                           <p>Ventas: {{producto?.sales}}</p>
-                          <p>Stock: {{producto?.stock}}</p>
+                          <p>Stock: {{producto?.stock}} <ion-icon name="create-outline" (click)="editaStock(producto?.idsku);"></ion-icon></p>
                           <p>Precio: {{producto?.value}}</p>
                            </ion-label>
                         </ion-item> 
