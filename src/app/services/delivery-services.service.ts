@@ -47,6 +47,7 @@ export class DeliveryServicesService {
   publishv2(dataDelivery){
       console.log('data-delivery: ',dataDelivery);
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
+    console.log(this.url + 'publishv2/', dataDelivery);
     return this.http.post(this.url + 'publishv2/', dataDelivery, { headers: headers }).toPromise();
   }
 

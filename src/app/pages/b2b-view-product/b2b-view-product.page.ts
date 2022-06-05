@@ -100,8 +100,23 @@ async editaStock(sku:string) {
         }
       }, {
         text: 'Guardar',
-        handler: () => {
-          console.log('Confirm Ok');
+        handler: data => {
+          
+          /*
+          Enviar Stock
+          */
+          let envio_stock = {
+            subsidiary: this.subsidiary.id,
+            sku:sku,
+            stock:data.stock,
+            user_created: this.user.email
+          }
+          let rest_aviso =this.deliveryPublish.publishv2(envio_stock);
+          console.log(rest_aviso);
+          this.showAlert('Envío stock', 'Se ha enviado Stock', ['OK']);
+          this.getCategoriaProductos();
+
+
         }
       }
     ]
