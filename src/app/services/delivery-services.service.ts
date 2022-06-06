@@ -51,6 +51,17 @@ export class DeliveryServicesService {
     return this.http.post(this.url + 'publishv2/', dataDelivery, { headers: headers }).toPromise();
   }
 
+  actualizaDatos(dataDelivery){
+    /*
+    actualiza datos en backend
+    DPW
+    */
+      console.log('envio-datos-dpw: ',dataDelivery);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
+    console.log(this.url + 'publishv2/', dataDelivery);
+    return this.http.put(this.url + 'publishv2/', dataDelivery, { headers: headers }).toPromise();
+  }
+
   publishPhoto(data){
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
     return this.http.post(this.url + 'publish-photo/', data, { headers: headers }).toPromise();

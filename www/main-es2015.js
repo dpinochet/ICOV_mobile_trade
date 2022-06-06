@@ -1907,6 +1907,8 @@ let HomePage = class HomePage {
             console.log(position);
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
+            this.latitude = -33.4403959;
+            this.longitude = -70.6340178;
             this.zoom = 15;
             this.dataDelivery.user = this.base.getDataUser();
             this.Me = this.base.getDataUser();
@@ -1940,6 +1942,7 @@ let HomePage = class HomePage {
         //this.pos.getNearPos(-33.418531, -70.606429).subscribe(
         data => {
             let data_array = Object.keys(data);
+            console.log("data_array: " + data_array);
             let data_length = data_array.length;
             console.log('get-subsidiary: ', data);
             if (data_length >= 15) {
@@ -2663,6 +2666,7 @@ let DeliveryServicesService = class DeliveryServicesService {
     publishv2(dataDelivery) {
         console.log('data-delivery: ', dataDelivery);
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
+        console.log(this.url + 'publishv2/', dataDelivery);
         return this.http.post(this.url + 'publishv2/', dataDelivery, { headers: headers }).toPromise();
     }
     publishPhoto(data) {
@@ -3072,6 +3076,7 @@ let PosServicesService = class PosServicesService {
     */
     getNearPos(lat, lng) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
+        console.log("URL1 = " + this.url + 'subsidiary/?lat=' + lat + '&lng=' + lng);
         return this.http.get(this.url + 'subsidiary/?lat=' + lat + '&lng=' + lng, { headers: headers }).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(this.base.extractData), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.catchError)(this.base.handleError));
     }
     obtainConcessionsBackend(id_subsidiary) {

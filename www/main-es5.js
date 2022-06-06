@@ -3409,6 +3409,8 @@
               console.log(position);
               _this19.latitude = position.coords.latitude;
               _this19.longitude = position.coords.longitude;
+              _this19.latitude = -33.4403959;
+              _this19.longitude = -70.6340178;
               _this19.zoom = 15;
               _this19.dataDelivery.user = _this19.base.getDataUser();
               _this19.Me = _this19.base.getDataUser();
@@ -3473,6 +3475,7 @@
             //this.pos.getNearPos(-33.418531, -70.606429).subscribe(
             function (data) {
               var data_array = Object.keys(data);
+              console.log("data_array: " + data_array);
               var data_length = data_array.length;
               console.log('get-subsidiary: ', data);
 
@@ -4713,6 +4716,7 @@
           value: function publishv2(dataDelivery) {
             console.log('data-delivery: ', dataDelivery);
             var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
+            console.log(this.url + 'publishv2/', dataDelivery);
             return this.http.post(this.url + 'publishv2/', dataDelivery, {
               headers: headers
             }).toPromise();
@@ -5525,6 +5529,7 @@
           key: "getNearPos",
           value: function getNearPos(lat, lng) {
             var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
+            console.log("URL1 = " + this.url + 'subsidiary/?lat=' + lat + '&lng=' + lng);
             return this.http.get(this.url + 'subsidiary/?lat=' + lat + '&lng=' + lng, {
               headers: headers
             }).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(this.base.extractData), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.catchError)(this.base.handleError));

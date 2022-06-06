@@ -111,10 +111,11 @@ async editaStock(sku:string) {
             stock:data.stock,
             user_created: this.user.email
           }
-          let rest_aviso =this.deliveryPublish.publishv2(envio_stock);
+          let rest_aviso =this.deliveryPublish.actualizaDatos(envio_stock);
           console.log(rest_aviso);
           this.showAlert('Envío stock', 'Se ha enviado Stock', ['OK']);
           this.getCategoriaProductos();
+          
 
 
         }
