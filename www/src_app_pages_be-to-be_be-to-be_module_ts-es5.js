@@ -1156,21 +1156,21 @@
                             while (1) {
                               switch (_context10.prev = _context10.next) {
                                 case 0:
-                                  this.subsidiary = JSON.parse(subsidiary.value);
-                                  console.log('getSubsidiary: ', this.subsidiary);
-                                  _context10.next = 4;
+                                  this.subsidiary = JSON.parse(subsidiary.value); // console.log('getSubsidiary 1: ', this.subsidiary);
+
+                                  _context10.next = 3;
                                   return this.getListProductSubsidiaryB2BMobile();
 
-                                case 4:
-                                  console.log('getSubsidiary: ', subsidiary.value);
-                                  _context10.next = 7;
+                                case 3:
+                                  _context10.next = 5;
                                   return this.getLastB2bSubsiduary(this.subsidiary.id);
 
-                                case 7:
+                                case 5:
                                   this.cortar_string(this.subsidiary.all.address);
+                                  console.log("cod_local", this.subsidiary.all.cod_local);
                                   this.loading = false;
 
-                                case 9:
+                                case 8:
                                 case "end":
                                   return _context10.stop();
                               }

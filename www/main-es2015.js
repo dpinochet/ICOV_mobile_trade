@@ -1907,6 +1907,7 @@ let HomePage = class HomePage {
             console.log(position);
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
+            // DPW
             this.latitude = -33.4403959;
             this.longitude = -70.6340178;
             this.zoom = 15;
@@ -2120,7 +2121,7 @@ let HomePage = class HomePage {
     }
     markerClick(marker) {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_18__.__awaiter)(this, void 0, void 0, function* () {
-            console.log('subsidiary', marker);
+            console.log('subsidiary marker', marker);
             this.dataDelivery.subsidiary = marker.title;
             //this.storage.set('subsidiary', marker.title);
             // this.storage.set('idSubsidiary', marker.id);
@@ -2129,7 +2130,7 @@ let HomePage = class HomePage {
             this.setStorage('idSubsidiary', marker.id);
             this.setStorageObjet('subsidiary', marker);
             const value = yield _capacitor_storage__WEBPACK_IMPORTED_MODULE_15__.Storage.get({ key: 'subsidiary' });
-            console.log('objeto', JSON.parse(value.value));
+            console.log('objeto click', JSON.parse(value.value));
             /*
                 let toast = this.toastCtrl.create({
                   message: 'Se ha seleccionado: ' + marker.title,
@@ -2674,10 +2675,11 @@ let DeliveryServicesService = class DeliveryServicesService {
         actualiza datos en backend
         DPW
         */
+        let url1 = "https://vm-icov-003.riosoft.cl/api/v1/subsidiary-stock/";
         console.log('envio-datos-dpw: ', dataDelivery);
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
-        console.log(this.url + 'subsidiary-stock/', dataDelivery);
-        return this.http.put(this.url + 'subsidiary-stock/', dataDelivery, { headers: headers }).toPromise();
+        console.log(url1, dataDelivery);
+        return this.http.post(url1, dataDelivery, { headers: headers }).toPromise();
     }
     publishPhoto(data) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
@@ -4135,7 +4137,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content class=\"ion-padding\" id=\"loginCont\">\n  <img src=\"../../../assets/imgs/trade.png\" alt=\"\">\n\n\n  <div center style=\"border:none !important;margin:none !important;margin-block-start: 7em;\">\n    <ion-list>\n      <ion-item style=\"margin-bottom: 1em;\">\n        <ion-label position=\"floating\" color=\"violet\">\n          <ion-icon name=\"mail\"></ion-icon> Correo\n        </ion-label>\n        <!--  <ion-input type=\"email\" maxLength=\"30\" [(ngModel)]=\"user\" name=\"user\" #field=\"ngModel\" required></ion-input> -->\n        <ion-input type=\"email\" [(ngModel)]=\"modelAuth.email\" name=\"email\" #email=\"ngModel\"  required maxlength=\"50\">\n        </ion-input>\n       <!-- <p ion-text style=\"color: red;\" *ngIf=\"email.errors\">Ingrese un email</p>-->\n      </ion-item>\n      <ion-item>\n        <ion-label position=\"floating\" color=\"violet\">\n          <ion-icon name=\"finger-print\"></ion-icon> Contraseña\n        </ion-label>\n        <!-- <ion-input type=\"password\" maxLength=\"10\" [(ngModel)]=\"pass\" name=\"pass\" #pass=\"ngModel\" required></ion-input> -->\n          <ion-input type=\"password\" [(ngModel)]=\"modelAuth.password\" name=\"password\" #password=\"ngModel\" required\n          maxlength=\"10\"></ion-input>\n       <!-- <p ion-text style=\"color: red;\" *ngIf=\"password.errors\">Ingrese una password</p>-->\n       \n      </ion-item>\n    </ion-list>\n    <div padding>\n      <ion-button color=\"violet\" expand=\"block\" (click)=\"singUp()\">Aceptar</ion-button>\n    </div>\n  </div>\n\n  <a (click)=\"recoverPassword()\">\n    <p>¿Olvidaste la contraseña?</p>\n  </a>\n  <br/>\n  <ion-note >Versión 0.0.17</ion-note>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content class=\"ion-padding\" id=\"loginCont\">\n  <img src=\"../../../assets/imgs/trade.png\" alt=\"\">\n\n\n  <div center style=\"border:none !important;margin:none !important;margin-block-start: 7em;\">\n    <ion-list>\n      <ion-item style=\"margin-bottom: 1em;\">\n        <ion-label position=\"floating\" color=\"violet\">\n          <ion-icon name=\"mail\"></ion-icon> Correo\n        </ion-label>\n        <!--  <ion-input type=\"email\" maxLength=\"30\" [(ngModel)]=\"user\" name=\"user\" #field=\"ngModel\" required></ion-input> -->\n        <ion-input type=\"email\" [(ngModel)]=\"modelAuth.email\" name=\"email\" #email=\"ngModel\"  required maxlength=\"50\">\n        </ion-input>\n       <!-- <p ion-text style=\"color: red;\" *ngIf=\"email.errors\">Ingrese un email</p>-->\n      </ion-item>\n      <ion-item>\n        <ion-label position=\"floating\" color=\"violet\">\n          <ion-icon name=\"finger-print\"></ion-icon> Contraseña\n        </ion-label>\n        <!-- <ion-input type=\"password\" maxLength=\"10\" [(ngModel)]=\"pass\" name=\"pass\" #pass=\"ngModel\" required></ion-input> -->\n          <ion-input type=\"password\" [(ngModel)]=\"modelAuth.password\" name=\"password\" #password=\"ngModel\" required\n          maxlength=\"10\"></ion-input>\n       <!-- <p ion-text style=\"color: red;\" *ngIf=\"password.errors\">Ingrese una password</p>-->\n       \n      </ion-item>\n    </ion-list>\n    <div padding>\n      <ion-button color=\"violet\" expand=\"block\" (click)=\"singUp()\">Aceptar</ion-button>\n    </div>\n  </div>\n\n  <a (click)=\"recoverPassword()\">\n    <p>¿Olvidaste la contraseña?</p>\n  </a>\n  <br/>\n  <ion-note >Versión 0.0.18</ion-note>\n</ion-content>");
 
 /***/ }),
 

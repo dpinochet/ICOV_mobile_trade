@@ -75,11 +75,50 @@ export class B2bViewProductPage implements OnInit {
     return moment(fecha).format('YYYY-MM-DD')
   }
 
+async eliminarProducto(sku:string, stock:number) {
+  const alert = await this.alertCtrl.create({
+    cssClass: 'my-custom-class',
+    header: '¡Confirma Quitar Producto!',
+    message: '¿Desea quitar este producto SKU:<strong>' + sku + '</strong>?',
+    buttons: [
+      {
+        text: 'NO',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'SI',
+        handler: () => {
+          
+          /*
+          Quitar Producto
+          */
+          let envio_stock = {
+            code_local: this.subsidiary.all.cod_local,
+            cod_local: this.subsidiary.all.cod_local,
+            idsku:sku,
+            stock:0,
+            is_active: false
+          }
+          let rest_aviso =this.deliveryPublish.actualizaDatos(envio_stock);
+          console.log(rest_aviso);
+          this.showAlert('Producto Quitado', 'Se ha quitado Producto SKY ' + sku, ['OK']);
+          this.getCategoriaProductos();
 
+
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
 
 
 async editaStock(sku:string) {
-  console.log("this.subsidiary.id" , this.subsidiary.id);
+  console.log("this.subsidiary.id" , this.subsidiary);
   
   const alert = await this.alertCtrl.create({
     cssClass: 'my-custom-class',
@@ -108,8 +147,8 @@ async editaStock(sku:string) {
           Enviar Stock
           */
           let envio_stock = {
-            
-            cod_local: this.subsidiary.id,
+            code_local: this.subsidiary.all.cod_local,
+            cod_local: this.subsidiary.all.cod_local,
             idsku:sku,
             stock:data.stock,
             is_active: true

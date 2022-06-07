@@ -352,8 +352,8 @@
             return moment__WEBPACK_IMPORTED_MODULE_4__(fecha).format('YYYY-MM-DD');
           }
         }, {
-          key: "editaStock",
-          value: function editaStock(sku) {
+          key: "eliminarProducto",
+          value: function eliminarProducto(sku, stock) {
             return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
               var _this2 = this;
 
@@ -363,6 +363,68 @@
                   switch (_context.prev = _context.next) {
                     case 0:
                       _context.next = 2;
+                      return this.alertCtrl.create({
+                        cssClass: 'my-custom-class',
+                        header: '¡Confirma Quitar Producto!',
+                        message: '¿Desea quitar este producto SKU:<strong>' + sku + '</strong>?',
+                        buttons: [{
+                          text: 'NO',
+                          role: 'cancel',
+                          cssClass: 'secondary',
+                          handler: function handler(blah) {
+                            console.log('Confirm Cancel: blah');
+                          }
+                        }, {
+                          text: 'SI',
+                          handler: function handler() {
+                            /*
+                            Quitar Producto
+                            */
+                            var envio_stock = {
+                              code_local: _this2.subsidiary.all.cod_local,
+                              cod_local: _this2.subsidiary.all.cod_local,
+                              idsku: sku,
+                              stock: 0,
+                              is_active: false
+                            };
+
+                            var rest_aviso = _this2.deliveryPublish.actualizaDatos(envio_stock);
+
+                            console.log(rest_aviso);
+
+                            _this2.showAlert('Producto Quitado', 'Se ha quitado Producto SKY ' + sku, ['OK']);
+
+                            _this2.getCategoriaProductos();
+                          }
+                        }]
+                      });
+
+                    case 2:
+                      alert = _context.sent;
+                      _context.next = 5;
+                      return alert.present();
+
+                    case 5:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
+          key: "editaStock",
+          value: function editaStock(sku) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+              var _this3 = this;
+
+              var alert;
+              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      console.log("this.subsidiary.id", this.subsidiary);
+                      _context2.next = 3;
                       return this.alertCtrl.create({
                         cssClass: 'my-custom-class',
                         header: 'Actualizar Stock: ',
@@ -385,44 +447,45 @@
                             Enviar Stock
                             */
                             var envio_stock = {
-                              subsidiary: _this2.subsidiary.id,
-                              sku: sku,
+                              code_local: _this3.subsidiary.all.cod_local,
+                              cod_local: _this3.subsidiary.all.cod_local,
+                              idsku: sku,
                               stock: data.stock,
-                              user_created: _this2.user.email
+                              is_active: true
                             };
 
-                            var rest_aviso = _this2.deliveryPublish.actualizaDatos(envio_stock);
+                            var rest_aviso = _this3.deliveryPublish.actualizaDatos(envio_stock);
 
                             console.log(rest_aviso);
 
-                            _this2.showAlert('Envío stock', 'Se ha enviado Stock', ['OK']);
+                            _this3.showAlert('Envío stock', 'Se ha enviado Stock', ['OK']);
 
-                            _this2.getCategoriaProductos();
+                            _this3.getCategoriaProductos();
                           }
                         }]
                       });
 
-                    case 2:
-                      alert = _context.sent;
-                      _context.next = 5;
+                    case 3:
+                      alert = _context2.sent;
+                      _context2.next = 6;
                       return alert.present();
 
-                    case 5:
+                    case 6:
                     case "end":
-                      return _context.stop();
+                      return _context2.stop();
                   }
                 }
-              }, _callee, this);
+              }, _callee2, this);
             }));
           }
         }, {
           key: "registrarImagenLowStock",
           value: function registrarImagenLowStock(producto, cat_pro, prod) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
               var img, model_lowstockproduc, rest_aviso;
-              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+              return _regeneratorRuntime().wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context2.prev = _context2.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
                       console.log('producto-low: ', producto);
                       /*this.camera.getPicture(
@@ -439,81 +502,6 @@
                       
                       
                       ).then(async (imageData) => {*/
-
-                      _context2.next = 3;
-                      return _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__.Camera.getPhoto({
-                        saveToGallery: false,
-                        width: 300,
-                        height: 300,
-                        quality: 100,
-                        allowEditing: false,
-                        resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__.CameraResultType.DataUrl,
-                        source: _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__.CameraSource.Camera,
-                        correctOrientation: true
-                      });
-
-                    case 3:
-                      this.base64Image = _context2.sent;
-                      img = this.base64Image.dataUrl;
-                      model_lowstockproduc = {
-                        id_subsidiary: this.subsidiary.id,
-                        id_product: producto.id,
-                        product_photo: img,
-                        user_created: this.user.email
-                      };
-                      _context2.prev = 6;
-                      _context2.next = 9;
-                      return this.deliveryPublish.lowstockproduct(model_lowstockproduc);
-
-                    case 9:
-                      rest_aviso = _context2.sent;
-                      console.log('rest_aviso_low_product:', rest_aviso);
-
-                      if (rest_aviso != null) {
-                        // let find_error_key = Object.keys(rest_aviso).indexOf('non_field_errors');
-                        // if (find_error_key > -1) {
-                        // } else {
-                        this.categorias_productos[cat_pro].product[prod].color = '#CCFF90';
-                        this.baja_stock_info_count = this.baja_stock_info_count + 1; // }
-                        //marcar el producto como registrado
-                      }
-
-                      _context2.next = 17;
-                      break;
-
-                    case 14:
-                      _context2.prev = 14;
-                      _context2.t0 = _context2["catch"](6);
-                      this.showAlert('Error bajo stock', 'este producto ya se encuentra informado con bajo stock', ['OK']);
-
-                    case 17:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }
-              }, _callee2, this, [[6, 14]]);
-            }));
-          }
-        }, {
-          key: "registrarImagenLowStockFilter",
-          value: function registrarImagenLowStockFilter(producto) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-              var img, model_lowstockproduc, rest_aviso;
-              return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-                while (1) {
-                  switch (_context3.prev = _context3.next) {
-                    case 0:
-                      console.log('producto-low: ', producto);
-                      /* this.camera.getPicture({
-                          saveToPhotoAlbum: false,
-                          targetWidth: 300,
-                          targetHeight: 300,
-                          quality: 100,
-                          allowEdit: false,
-                          encodingType: this.camera.EncodingType.PNG,
-                          sourceType: this.camera.PictureSourceType.CAMERA,
-                          destinationType: this.camera.DestinationType.DATA_URL,
-                        }).then(async (imageData) => {*/
 
                       _context3.next = 3;
                       return _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__.Camera.getPhoto({
@@ -548,7 +536,7 @@
                         // let find_error_key = Object.keys(rest_aviso).indexOf('non_field_errors');
                         // if (find_error_key > -1) {
                         // } else {
-                        this.getCategoriaProductos();
+                        this.categorias_productos[cat_pro].product[prod].color = '#CCFF90';
                         this.baja_stock_info_count = this.baja_stock_info_count + 1; // }
                         //marcar el producto como registrado
                       }
@@ -570,15 +558,90 @@
             }));
           }
         }, {
-          key: "showAlert",
-          value: function showAlert(title, subTitle, buttons) {
+          key: "registrarImagenLowStockFilter",
+          value: function registrarImagenLowStockFilter(producto) {
             return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-              var alert;
+              var img, model_lowstockproduc, rest_aviso;
               return _regeneratorRuntime().wrap(function _callee4$(_context4) {
                 while (1) {
                   switch (_context4.prev = _context4.next) {
                     case 0:
-                      _context4.next = 2;
+                      console.log('producto-low: ', producto);
+                      /* this.camera.getPicture({
+                          saveToPhotoAlbum: false,
+                          targetWidth: 300,
+                          targetHeight: 300,
+                          quality: 100,
+                          allowEdit: false,
+                          encodingType: this.camera.EncodingType.PNG,
+                          sourceType: this.camera.PictureSourceType.CAMERA,
+                          destinationType: this.camera.DestinationType.DATA_URL,
+                        }).then(async (imageData) => {*/
+
+                      _context4.next = 3;
+                      return _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__.Camera.getPhoto({
+                        saveToGallery: false,
+                        width: 300,
+                        height: 300,
+                        quality: 100,
+                        allowEditing: false,
+                        resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__.CameraResultType.DataUrl,
+                        source: _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__.CameraSource.Camera,
+                        correctOrientation: true
+                      });
+
+                    case 3:
+                      this.base64Image = _context4.sent;
+                      img = this.base64Image.dataUrl;
+                      model_lowstockproduc = {
+                        id_subsidiary: this.subsidiary.id,
+                        id_product: producto.id,
+                        product_photo: img,
+                        user_created: this.user.email
+                      };
+                      _context4.prev = 6;
+                      _context4.next = 9;
+                      return this.deliveryPublish.lowstockproduct(model_lowstockproduc);
+
+                    case 9:
+                      rest_aviso = _context4.sent;
+                      console.log('rest_aviso_low_product:', rest_aviso);
+
+                      if (rest_aviso != null) {
+                        // let find_error_key = Object.keys(rest_aviso).indexOf('non_field_errors');
+                        // if (find_error_key > -1) {
+                        // } else {
+                        this.getCategoriaProductos();
+                        this.baja_stock_info_count = this.baja_stock_info_count + 1; // }
+                        //marcar el producto como registrado
+                      }
+
+                      _context4.next = 17;
+                      break;
+
+                    case 14:
+                      _context4.prev = 14;
+                      _context4.t0 = _context4["catch"](6);
+                      this.showAlert('Error bajo stock', 'este producto ya se encuentra informado con bajo stock', ['OK']);
+
+                    case 17:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this, [[6, 14]]);
+            }));
+          }
+        }, {
+          key: "showAlert",
+          value: function showAlert(title, subTitle, buttons) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+              var alert;
+              return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      _context5.next = 2;
                       return this.alertCtrl.create({
                         //title: title,
                         //subTitle: subTitle,
@@ -588,26 +651,26 @@
                       });
 
                     case 2:
-                      alert = _context4.sent;
-                      _context4.next = 5;
+                      alert = _context5.sent;
+                      _context5.next = 5;
                       return alert.present();
 
                     case 5:
                     case "end":
-                      return _context4.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee4, this);
+              }, _callee5, this);
             }));
           }
         }, {
           key: "getCategoriaProductos",
           value: function getCategoriaProductos() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
               var product_category, product_valid;
-              return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+              return _regeneratorRuntime().wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
                       /**
                        * obtiene los productos del subisidiary por categoria
@@ -618,45 +681,45 @@
                       this.temporal_product_item = null;
                       this.allProductList = new Array();
                       this.formGroupSearch.reset();
-                      _context5.prev = 5;
+                      _context6.prev = 5;
                       this.loading = true;
                       console.log('product-valid: ', this.subsidiary.id, ' modal'); // console.log('dataCategoriaProductos:',{subisidiary_id:this.subsidiary.id,marca:this.data_modal_marca.card_item.id});
 
-                      _context5.next = 10;
+                      _context6.next = 10;
                       return this.b2b.getCategoriaProductos(this.subsidiary.id, this.data_modal_marca.id);
 
                     case 10:
-                      product_category = _context5.sent;
-                      _context5.next = 13;
+                      product_category = _context6.sent;
+                      _context6.next = 13;
                       return this.deliveryPublish.subsidiaryb2bmobileproducts(this.subsidiary.id, this.data_modal_marca.id);
 
                     case 13:
-                      product_valid = _context5.sent;
+                      product_valid = _context6.sent;
                       console.log('product-valid: ', product_valid);
                       this.categorias_productos = product_category;
                       console.log('categorias productos: ', this.categorias_productos);
                       this.setColorCalifProduct(this.categorias_productos, product_valid);
                       this.loading = false;
-                      _context5.next = 24;
+                      _context6.next = 24;
                       break;
 
                     case 21:
-                      _context5.prev = 21;
-                      _context5.t0 = _context5["catch"](5);
-                      console.log('error:', _context5.t0);
+                      _context6.prev = 21;
+                      _context6.t0 = _context6["catch"](5);
+                      console.log('error:', _context6.t0);
 
                     case 24:
                     case "end":
-                      return _context5.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee5, this, [[5, 21]]);
+              }, _callee6, this, [[5, 21]]);
             }));
           }
         }, {
           key: "setColorCalifProduct",
           value: function setColorCalifProduct(category_arr, validArr) {
-            var _this3 = this;
+            var _this4 = this;
 
             try {
               if (validArr.length > 0) {
@@ -667,9 +730,9 @@
                     });
 
                     if (find_valid_product > -1) {
-                      _this3.categorias_productos[idx_category].product[idx_product].color = '#CCFF90';
+                      _this4.categorias_productos[idx_category].product[idx_product].color = '#CCFF90';
                     } else {
-                      _this3.categorias_productos[idx_category].product[idx_product].color = '#FCE4EC';
+                      _this4.categorias_productos[idx_category].product[idx_product].color = '#FCE4EC';
                     }
                   });
                 });
@@ -677,7 +740,7 @@
                 category_arr.forEach(function (category, idx_category) {
                   category.product.forEach(function (product, idx_product) {
                     if (product.stock <= 5) {
-                      _this3.categorias_productos[idx_category].product[idx_product].color = '#FCE4EC';
+                      _this4.categorias_productos[idx_category].product[idx_product].color = '#FCE4EC';
                     }
                   });
                 });
@@ -689,39 +752,39 @@
         }, {
           key: "ionViewDidLoad",
           value: function ionViewDidLoad() {
-            var _this4 = this;
+            var _this5 = this;
 
             setTimeout(function () {
-              _this4.initt(); //})
+              _this5.initt(); //})
 
             }, 2000);
           }
         }, {
           key: "initt",
           value: function initt() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
               var value;
-              return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+              return _regeneratorRuntime().wrap(function _callee7$(_context7) {
                 while (1) {
-                  switch (_context6.prev = _context6.next) {
+                  switch (_context7.prev = _context7.next) {
                     case 0:
                       console.log('ionViewDidLoad BeToBePage');
                       this.loading = true;
-                      _context6.next = 4;
+                      _context7.next = 4;
                       return _capacitor_storage__WEBPACK_IMPORTED_MODULE_2__.Storage.get({
                         key: 'subsidiary'
                       });
 
                     case 4:
-                      value = _context6.sent;
+                      value = _context7.sent;
                       // this.storage.get('subsidiary').then(async (subsidiary: any) => {
                       this.subsidiary = JSON.parse(value.value); // await this.getListProductSubsidiaryB2BMobile();
 
-                      _context6.next = 8;
+                      _context7.next = 8;
                       return this.getCategoriaProductos();
 
                     case 8:
-                      _context6.next = 10;
+                      _context7.next = 10;
                       return this.getLastB2bSubsiduary();
 
                     case 10:
@@ -730,76 +793,76 @@
 
                     case 12:
                     case "end":
-                      return _context6.stop();
+                      return _context7.stop();
                   }
                 }
-              }, _callee6, this);
+              }, _callee7, this);
             }));
           }
         }, {
           key: "getLastB2bSubsiduary",
           value: function getLastB2bSubsiduary() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-              return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+              return _regeneratorRuntime().wrap(function _callee8$(_context8) {
                 while (1) {
-                  switch (_context7.prev = _context7.next) {
+                  switch (_context8.prev = _context8.next) {
                     case 0:
-                      _context7.prev = 0;
-                      _context7.next = 3;
+                      _context8.prev = 0;
+                      _context8.next = 3;
                       return this.b2b.getLastB2bSubsidiary(this.subsidiary.id);
 
                     case 3:
-                      this.subsidiary_last_b2b = _context7.sent;
-                      _context7.next = 8;
+                      this.subsidiary_last_b2b = _context8.sent;
+                      _context8.next = 8;
                       break;
 
                     case 6:
-                      _context7.prev = 6;
-                      _context7.t0 = _context7["catch"](0);
+                      _context8.prev = 6;
+                      _context8.t0 = _context8["catch"](0);
 
                     case 8:
                     case "end":
-                      return _context7.stop();
+                      return _context8.stop();
                   }
                 }
-              }, _callee7, this, [[0, 6]]);
+              }, _callee8, this, [[0, 6]]);
             }));
           }
         }, {
           key: "buscarProducto",
           value: function buscarProducto() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-              var _this5 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+              var _this6 = this;
 
-              return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+              return _regeneratorRuntime().wrap(function _callee10$(_context10) {
                 while (1) {
-                  switch (_context9.prev = _context9.next) {
+                  switch (_context10.prev = _context10.next) {
                     case 0:
                       // this.temporal_product_item = null;
                       // this.allProductList = new Array();
                       // await this.getCategoriaProductos();
                       this.barcodeScanner.scan().then(function (barcodeData) {
-                        return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(_this5, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-                          return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+                        return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(_this6, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+                          return _regeneratorRuntime().wrap(function _callee9$(_context9) {
                             while (1) {
-                              switch (_context8.prev = _context8.next) {
+                              switch (_context9.prev = _context9.next) {
                                 case 0:
                                   if (!(barcodeData.text === "")) {
-                                    _context8.next = 7;
+                                    _context9.next = 7;
                                     break;
                                   }
 
                                   this.temporal_product_item = null;
                                   this.allProductList = new Array();
-                                  _context8.next = 5;
+                                  _context9.next = 5;
                                   return this.getCategoriaProductos();
 
                                 case 5:
-                                  _context8.next = 12;
+                                  _context9.next = 12;
                                   break;
 
                                 case 7:
-                                  _context8.next = 9;
+                                  _context9.next = 9;
                                   return this.setProductListAll();
 
                                 case 9:
@@ -813,10 +876,10 @@
 
                                 case 13:
                                 case "end":
-                                  return _context8.stop();
+                                  return _context9.stop();
                               }
                             }
-                          }, _callee8, this);
+                          }, _callee9, this);
                         }));
                       })["catch"](function (err) {
                         console.log('Error', err);
@@ -824,37 +887,37 @@
 
                     case 1:
                     case "end":
-                      return _context9.stop();
+                      return _context10.stop();
                   }
                 }
-              }, _callee9, this);
+              }, _callee10, this);
             }));
           }
         }, {
           key: "setProductListAll",
           value: function setProductListAll() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
-              var _this6 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+              var _this7 = this;
 
-              return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+              return _regeneratorRuntime().wrap(function _callee11$(_context11) {
                 while (1) {
-                  switch (_context10.prev = _context10.next) {
+                  switch (_context11.prev = _context11.next) {
                     case 0:
                       this.categorias_productos.forEach(function (category) {
                         category.product.forEach(function (producto) {
-                          _this6.allProductList.push(producto);
+                          _this7.allProductList.push(producto);
 
                           console.log('producto_item: ', producto);
                         });
                       });
-                      return _context10.abrupt("return", true);
+                      return _context11.abrupt("return", true);
 
                     case 2:
                     case "end":
-                      return _context10.stop();
+                      return _context11.stop();
                   }
                 }
-              }, _callee10, this);
+              }, _callee11, this);
             }));
           }
         }, {
@@ -867,27 +930,27 @@
         }, {
           key: "getListProductSubsidiaryB2BMobile",
           value: function getListProductSubsidiaryB2BMobile() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_11__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
               var subsidiary_b2_mobile_data_product;
-              return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+              return _regeneratorRuntime().wrap(function _callee12$(_context12) {
                 while (1) {
-                  switch (_context11.prev = _context11.next) {
+                  switch (_context12.prev = _context12.next) {
                     case 0:
-                      _context11.next = 2;
+                      _context12.next = 2;
                       return this.b2b.getsubsidiaryB2bMobile(this.subsidiary.id);
 
                     case 2:
-                      subsidiary_b2_mobile_data_product = _context11.sent;
+                      subsidiary_b2_mobile_data_product = _context12.sent;
                       this.subsidiary_b2_mobile_data_product_list = subsidiary_b2_mobile_data_product;
                       this.cortar_string(this.subsidiary.all.address);
                       console.log('b2b_product: ', subsidiary_b2_mobile_data_product);
 
                     case 6:
                     case "end":
-                      return _context11.stop();
+                      return _context12.stop();
                   }
                 }
-              }, _callee11, this);
+              }, _callee12, this);
             }));
           }
         }, {
@@ -1023,7 +1086,7 @@
         }, {
           key: "getCategoriaProductos",
           value: function getCategoriaProductos(subsidiary_id, id_brand) {
-            var _this7 = this;
+            var _this8 = this;
 
             /**
              *  @param subsidiary_id
@@ -1031,37 +1094,37 @@
              *
              */
             return new Promise(function (resolve, reject) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(_this7, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(_this8, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
                 var productos_marcas, headers;
-                return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+                return _regeneratorRuntime().wrap(function _callee13$(_context13) {
                   while (1) {
-                    switch (_context12.prev = _context12.next) {
+                    switch (_context13.prev = _context13.next) {
                       case 0:
                         productos_marcas = new Array();
-                        _context12.prev = 1;
+                        _context13.prev = 1;
                         headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken()); //     /**obteniendo las categorias de productos */
 
-                        _context12.next = 5;
+                        _context13.next = 5;
                         return this.http.get(this.url + 'reports/subsidiary-b2b-mobile/?id_subsidiary=' + subsidiary_id + '&id_brand=' + id_brand + '', {
                           headers: headers
                         }).toPromise();
 
                       case 5:
-                        productos_marcas = _context12.sent;
+                        productos_marcas = _context13.sent;
                         resolve(productos_marcas);
-                        _context12.next = 11;
+                        _context13.next = 11;
                         break;
 
                       case 9:
-                        _context12.prev = 9;
-                        _context12.t0 = _context12["catch"](1);
+                        _context13.prev = 9;
+                        _context13.t0 = _context13["catch"](1);
 
                       case 11:
                       case "end":
-                        return _context12.stop();
+                        return _context13.stop();
                     }
                   }
-                }, _callee12, this, [[1, 9]]);
+                }, _callee13, this, [[1, 9]]);
               }));
             });
           }
@@ -1146,7 +1209,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<!--\n  Generated template for the B2bViewProductPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n<ion-header no-border>\n  <ion-toolbar color='violet'>\n    <ion-buttons slot=\"start\" >\n      <ion-button  (click)=\"goBack()\" >\n        <ion-icon name=\"close\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>{{subsidiary?.title}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content style=\"background:#F5F5F5\" class=\"ion-padding\">\n\n\n  <div *ngIf=\"loading\" style=\"text-align:center\">\n\n    <h3 style=\"margin-block-start: 10em;text-align: center;color:#757575\">\n      Cargando productos...\n    </h3>\n\n    <ion-spinner name=\"bubbles\"></ion-spinner>\n\n  </div>\n\n  <div *ngIf=\"!loading\">\n\n\n\n\n\n    <div *ngIf=\"categorias_productos?.length==0\">\n      <h3 style=\"margin-block-start: 10em;text-align: center;color:#616161\">Sin productos para esta marca</h3>\n    </div>\n\n\n    <div *ngIf=\"categorias_productos?.length>0\">\n\n      <form [formGroup]=\"formGroupSearch\">\n        <ion-searchbar formControlName=\"search\" (click)=\"buscarProducto()\"></ion-searchbar>\n      </form>\n\n      <ion-list>\n        <ion-scroll scrollY=\"true\" style=\"height:100vh;\">\n\n          <div *ngIf=\"temporal_product_item!=null\">\n\n            <div *ngFor=\"let producto of temporal_product_item;let pro=index\">\n              <ion-item-sliding #item>\n                <ion-item [ngStyle]=\"{'background-color': producto?.color}\">\n                  <ion-avatar item-start style=\"margin-left:1em !important; margin-right:1em !important;\">\n                    <img [src]=\"producto?.product_photo\">\n                  </ion-avatar>\n                  <h3 style=\"color:#37474F\">{{producto?.product_description}}</h3>\n                  <p>SKU: {{producto?.idsku}}</p>\n                  <p>Codigo de barra: {{producto?.bar_code}}</p>\n                  <p>fecha ultimo b2b: {{parse_fecha_b2b(producto?.last_b2b)}} </p>\n                  <p>Ventas: {{producto?.sales}}</p>\n                  <p>Stock: {{producto?.stock}} <ion-icon name=\"create-outline\"></ion-icon></p>\n                  <p>Precio: {{producto?.value}}</p>\n                </ion-item>\n                <!-- <ion-item-options side=\"left\">\n                      <button ion-button (click)=\"favorite(item)\">Favorite</button>\n                      <button ion-button color=\"danger\" (click)=\"share(item)\">Share</button>\n                    </ion-item-options> -->\n\n                <!--<ion-item-options side=\"start\">\n                  <ion-button *ngIf=\"producto?.color==='#FCE4EC'\" ion-button\n                    (click)=\"registrarImagenLowStockFilter(producto)\">\n                    <ion-icon name=\"camera\"></ion-icon>\n                  </ion-button>\n                  <ion-button *ngIf=\"producto?.color==='#CCFF90'\" ion-button>\n                    <ion-icon name=\"checkmark\"></ion-icon>\n                  </ion-button>\n                </ion-item-options>-->\n              </ion-item-sliding>\n            </div>\n            <br />\n            <button ion-button block clear (click)=\"getCategoriaProductos()\">\n              <ion-icon name=\"trash\"></ion-icon>\n            </button>\n \n\n          </div>\n\n          <div *ngIf=\"temporal_product_item==null\">\n\n            <div *ngFor=\"let categoria of categorias_productos;let cat_pro=index\">\n\n              <accordion>\n                <accordion-group [heading]=\"categoria?.category\" [isOpened]=\"false\">\n               \n                  <div *ngIf=\"categoria?.product?.length>0\">\n                    <div *ngFor=\"let producto of categoria.product;let pro=index\">\n  \n                      <ion-item-sliding #item>\n                        <ion-item [ngStyle]=\"{'background-color': producto?.color}\">\n                          <ion-avatar item-start style=\"margin-left:1em !important; margin-right:1em !important;\">\n                            <img [src]=\"producto?.product_photo\">\n                          </ion-avatar>\n                          <ion-label>\n                          <h3 style=\"color:#37474F\">{{producto?.product_description}}</h3>\n                          <p>SKU: {{producto?.idsku}}</p>\n                          <p>Codigo de barra: {{producto?.bar_code}}</p>\n                          <p>fecha ultimo b2b: {{parse_fecha_b2b(producto?.last_b2b)}}</p>\n                          <p>Ventas: {{producto?.sales}}</p>\n                          <p>Stock: {{producto?.stock}} <ion-icon name=\"create-outline\" (click)=\"editaStock(producto?.idsku);\"></ion-icon></p>\n                          <p>Precio: {{producto?.value}}</p>\n                           </ion-label>\n                        </ion-item> \n                        <!-- <ion-item-options side=\"left\">\n                                        <button ion-button (click)=\"favorite(item)\">Favorite</button>\n                                        <button ion-button color=\"danger\" (click)=\"share(item)\">Share</button>\n                                      </ion-item-options> -->\n  \n                        <!--<ion-item-options side=\"start\">\n                          <ion-button *ngIf=\"producto?.color==='#FCE4EC'\" ion-button\n                            (click)=\"registrarImagenLowStock(producto,cat_pro,pro)\">\n                            <ion-icon name=\"camera\"></ion-icon>\n                          </ion-button>\n                          <ion-button *ngIf=\"producto?.color==='#CCFF90'\" ion-button>\n                            <ion-icon name=\"checkmark\"></ion-icon>\n                          </ion-button>\n                        </ion-item-options>-->\n                      </ion-item-sliding>\n  \n                      <!-- <ion-item>\n                                  <ion-avatar item-start style=\"margin-left:1em !important; margin-right:1em !important;\">\n                                    <img [src]=\"producto?.product_photo\">\n                                  </ion-avatar>\n                                  <!-- <h2>title</h2> -->\n                      <!-- <h3>{{producto?.product_description}}</h3>\n                                  <p>SKU: {{producto?.idsku}}</p>\n                                  <p>Codigo de barra: {{producto?.bar_code}}</p> -->\n                      <!-- <p>fecha ultimo b2b</p> -->\n                      <!-- <p>Ventas: {{producto?.sales}}</p>\n                                  <p>Stock: {{producto?.stock}}</p>\n                                  <p>Precio: {{producto?.value}}</p>\n                                </ion-item> -->\n                    </div>\n  \n                  </div>\n                  <div style=\"margin-left:auto !important; margin-right:auto !important\"\n                    *ngIf=\"categoria?.productos?.length==0\">\n                    <!-- <i class=\"material-icons\">\n                                remove_shopping_cart\n                              </i>\n                              <p>Sin productos para esta categoria</p> -->\n                  </div>\n                  <!-- <ion-item>\n                            <ion-avatar item-start>\n                              <img [src]=\"subsidiary?.all.picture_business\">\n                            </ion-avatar>\n                            <h2 style=\"color:#757575\">{{product?.sales}}</h2>\n                            <h3 style=\"color:#757575\">{{product?.stock}}</h3>\n                            <p style=\"color:#757575\">{{product?.idsku}}.</p>\n                      \n                          </ion-item> -->\n\n                </accordion-group>  \n\n\n\n              </accordion>\n\n\n\n\n            </div>\n\n\n\n\n\n\n\n\n\n          </div>\n\n        </ion-scroll>\n      </ion-list>\n\n    </div>\n\n  </div>\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<!--\n  Generated template for the B2bViewProductPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n<ion-header no-border>\n  <ion-toolbar color='violet'>\n    <ion-buttons slot=\"start\" >\n      <ion-button  (click)=\"goBack()\" >\n        <ion-icon name=\"close\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>{{subsidiary?.title}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content style=\"background:#F5F5F5\" class=\"ion-padding\">\n\n\n  <div *ngIf=\"loading\" style=\"text-align:center\">\n\n    <h3 style=\"margin-block-start: 10em;text-align: center;color:#757575\">\n      Cargando productos...\n    </h3>\n\n    <ion-spinner name=\"bubbles\"></ion-spinner>\n\n  </div>\n\n  <div *ngIf=\"!loading\">\n\n\n\n\n\n    <div *ngIf=\"categorias_productos?.length==0\">\n      <h3 style=\"margin-block-start: 10em;text-align: center;color:#616161\">Sin productos para esta marca</h3>\n    </div>\n\n\n    <div *ngIf=\"categorias_productos?.length>0\">\n\n      <form [formGroup]=\"formGroupSearch\">\n        <ion-searchbar formControlName=\"search\" (click)=\"buscarProducto()\"></ion-searchbar>\n      </form>\n\n      <ion-list>\n        <ion-scroll scrollY=\"true\" style=\"height:100vh;\">\n\n          <div *ngIf=\"temporal_product_item!=null\">\n\n            <div *ngFor=\"let producto of temporal_product_item;let pro=index\">\n              <ion-item-sliding #item>\n                <ion-item [ngStyle]=\"{'background-color': producto?.color}\">\n                  <ion-avatar item-start style=\"margin-left:1em !important; margin-right:1em !important;\">\n                    <img [src]=\"producto?.product_photo\">\n                  </ion-avatar>\n                 \n                  <h3 style=\"color:#37474F\">{{producto?.product_description}}</h3>\n                  <p>SKU: {{producto?.idsku}}</p>\n                  <p>Codigo de barra: {{producto?.bar_code}}</p>\n                  <p>fecha ultimo b2b: {{parse_fecha_b2b(producto?.last_b2b)}} </p>\n                  <p>Ventas: {{producto?.sales}}</p>\n                  <p>Stock: {{producto?.stock}} <ion-icon name=\"create-outline\" (click)=\"editaStock(producto?.idsku);\"></ion-icon></p>\n                  <p>Precio: {{producto?.value}}</p>\n                  <p><ion-icon name=\"trash-outline\" (click)=\"eliminarProducto(producto?.idsku,producto?.stock);\"></ion-icon></p>\n                  \n                </ion-item>\n                <!-- <ion-item-options side=\"left\">\n                      <button ion-button (click)=\"favorite(item)\">Favorite</button>\n                      <button ion-button color=\"danger\" (click)=\"share(item)\">Share</button>\n                    </ion-item-options> -->\n\n                <!--<ion-item-options side=\"start\">\n                  <ion-button *ngIf=\"producto?.color==='#FCE4EC'\" ion-button\n                    (click)=\"registrarImagenLowStockFilter(producto)\">\n                    <ion-icon name=\"camera\"></ion-icon>\n                  </ion-button>\n                  <ion-button *ngIf=\"producto?.color==='#CCFF90'\" ion-button>\n                    <ion-icon name=\"checkmark\"></ion-icon>\n                  </ion-button>\n                </ion-item-options>-->\n              </ion-item-sliding>\n            </div>\n            <br />\n            <button ion-button block clear (click)=\"getCategoriaProductos()\">\n              <ion-icon name=\"trash\"></ion-icon>\n            </button>\n \n\n          </div>\n\n          <div *ngIf=\"temporal_product_item==null\">\n\n            <div *ngFor=\"let categoria of categorias_productos;let cat_pro=index\">\n\n              <accordion>\n                <accordion-group [heading]=\"categoria?.category\" [isOpened]=\"false\">\n               \n                  <div *ngIf=\"categoria?.product?.length>0\">\n                    <div *ngFor=\"let producto of categoria.product;let pro=index\">\n  \n                      <ion-item-sliding #item>\n                        <ion-item [ngStyle]=\"{'background-color': producto?.color}\">\n                          <ion-avatar item-start style=\"margin-left:1em !important; margin-right:1em !important;\">\n                            <img [src]=\"producto?.product_photo\">\n                          </ion-avatar>\n                          <ion-label>\n                          <h3 style=\"color:#37474F\">{{producto?.product_description}}</h3>\n                          <p>SKU: {{producto?.idsku}}</p>\n                          <p>Codigo de barra: {{producto?.bar_code}}</p>\n                          <p>fecha ultimo b2b: {{parse_fecha_b2b(producto?.last_b2b)}}</p>\n                          <p>Ventas: {{producto?.sales}}</p>\n                          <p>Stock: {{producto?.stock}} <ion-icon name=\"create-outline\" (click)=\"editaStock(producto?.idsku);\"></ion-icon></p>\n                          <p>Precio: {{producto?.value}}</p>\n                          <p><ion-icon name=\"trash-outline\" (click)=\"eliminarProducto(producto?.idsku);\"></ion-icon></p>\n                           </ion-label>\n                        </ion-item> \n                        <!-- <ion-item-options side=\"left\">\n                                        <button ion-button (click)=\"favorite(item)\">Favorite</button>\n                                        <button ion-button color=\"danger\" (click)=\"share(item)\">Share</button>\n                                      </ion-item-options> -->\n  \n                        <!--<ion-item-options side=\"start\">\n                          <ion-button *ngIf=\"producto?.color==='#FCE4EC'\" ion-button\n                            (click)=\"registrarImagenLowStock(producto,cat_pro,pro)\">\n                            <ion-icon name=\"camera\"></ion-icon>\n                          </ion-button>\n                          <ion-button *ngIf=\"producto?.color==='#CCFF90'\" ion-button>\n                            <ion-icon name=\"checkmark\"></ion-icon>\n                          </ion-button>\n                        </ion-item-options>-->\n                      </ion-item-sliding>\n  \n                      <!-- <ion-item>\n                                  <ion-avatar item-start style=\"margin-left:1em !important; margin-right:1em !important;\">\n                                    <img [src]=\"producto?.product_photo\">\n                                  </ion-avatar>\n                                  <!-- <h2>title</h2> -->\n                      <!-- <h3>{{producto?.product_description}}</h3>\n                                  <p>SKU: {{producto?.idsku}}</p>\n                                  <p>Codigo de barra: {{producto?.bar_code}}</p> -->\n                      <!-- <p>fecha ultimo b2b</p> -->\n                      <!-- <p>Ventas: {{producto?.sales}}</p>\n                                  <p>Stock: {{producto?.stock}}</p>\n                                  <p>Precio: {{producto?.value}}</p>\n                                </ion-item> -->\n                    </div>\n  \n                  </div>\n                  <div style=\"margin-left:auto !important; margin-right:auto !important\"\n                    *ngIf=\"categoria?.productos?.length==0\">\n                    <!-- <i class=\"material-icons\">\n                                remove_shopping_cart\n                              </i>\n                              <p>Sin productos para esta categoria</p> -->\n                  </div>\n                  <!-- <ion-item>\n                            <ion-avatar item-start>\n                              <img [src]=\"subsidiary?.all.picture_business\">\n                            </ion-avatar>\n                            <h2 style=\"color:#757575\">{{product?.sales}}</h2>\n                            <h3 style=\"color:#757575\">{{product?.stock}}</h3>\n                            <p style=\"color:#757575\">{{product?.idsku}}.</p>\n                      \n                          </ion-item> -->\n\n                </accordion-group>  \n\n\n\n              </accordion>\n\n\n\n\n            </div>\n\n\n\n\n\n\n\n\n\n          </div>\n\n        </ion-scroll>\n      </ion-list>\n\n    </div>\n\n  </div>\n\n</ion-content>\n";
       /***/
     }
   }]);

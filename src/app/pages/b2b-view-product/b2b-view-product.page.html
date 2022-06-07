@@ -58,13 +58,16 @@
                   <ion-avatar item-start style="margin-left:1em !important; margin-right:1em !important;">
                     <img [src]="producto?.product_photo">
                   </ion-avatar>
+                 
                   <h3 style="color:#37474F">{{producto?.product_description}}</h3>
                   <p>SKU: {{producto?.idsku}}</p>
                   <p>Codigo de barra: {{producto?.bar_code}}</p>
                   <p>fecha ultimo b2b: {{parse_fecha_b2b(producto?.last_b2b)}} </p>
                   <p>Ventas: {{producto?.sales}}</p>
-                  <p>Stock: {{producto?.stock}} <ion-icon name="create-outline"></ion-icon></p>
+                  <p>Stock: {{producto?.stock}} <ion-icon name="create-outline" (click)="editaStock(producto?.idsku);"></ion-icon></p>
                   <p>Precio: {{producto?.value}}</p>
+                  <p><ion-icon name="trash-outline" (click)="eliminarProducto(producto?.idsku,producto?.stock);"></ion-icon></p>
+                  
                 </ion-item>
                 <!-- <ion-item-options side="left">
                       <button ion-button (click)="favorite(item)">Favorite</button>
@@ -113,6 +116,7 @@
                           <p>Ventas: {{producto?.sales}}</p>
                           <p>Stock: {{producto?.stock}} <ion-icon name="create-outline" (click)="editaStock(producto?.idsku);"></ion-icon></p>
                           <p>Precio: {{producto?.value}}</p>
+                          <p><ion-icon name="trash-outline" (click)="eliminarProducto(producto?.idsku);"></ion-icon></p>
                            </ion-label>
                         </ion-item> 
                         <!-- <ion-item-options side="left">

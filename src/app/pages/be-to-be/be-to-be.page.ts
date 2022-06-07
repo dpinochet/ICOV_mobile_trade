@@ -858,11 +858,12 @@ export class BeToBePage implements OnInit {
     console.log('ffff');
     await Storage.get({ key: 'subsidiary'}).then(async (subsidiary: any) => {
       this.subsidiary = JSON.parse(subsidiary.value);
-      console.log('getSubsidiary: ', this.subsidiary);
+     // console.log('getSubsidiary 1: ', this.subsidiary);
       await this.getListProductSubsidiaryB2BMobile();
-      console.log('getSubsidiary: ', subsidiary.value);
+     // console.log('getSubsidiary 2: ', subsidiary.value);
       await this.getLastB2bSubsiduary(this.subsidiary.id);
       this.cortar_string(this.subsidiary.all.address);
+      console.log("cod_local" , this.subsidiary.all.cod_local);
       this.loading = false;
     });
    

@@ -400,9 +400,11 @@ export class HomePage implements OnInit {
       console.log(position);
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
-
+    // DPW
       this.latitude = -33.4403959;
       this.longitude = -70.6340178;
+
+
       this.zoom = 15;
       this.dataDelivery.user = this.base.getDataUser();
       this.Me = this.base.getDataUser();
@@ -630,7 +632,7 @@ export class HomePage implements OnInit {
  
 
  async markerClick(marker) {
-    console.log('subsidiary', marker);
+    console.log('subsidiary marker', marker);
     this.dataDelivery.subsidiary = marker.title;
     //this.storage.set('subsidiary', marker.title);
    // this.storage.set('idSubsidiary', marker.id);
@@ -642,7 +644,7 @@ export class HomePage implements OnInit {
     
       const  value  = await Storage.get({ key: 'subsidiary' });
     
-      console.log('objeto',JSON.parse(value.value))
+      console.log('objeto click',JSON.parse(value.value))
     
     
 

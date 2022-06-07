@@ -778,11 +778,12 @@ let BeToBePage = class BeToBePage {
             console.log('ffff');
             yield _capacitor_storage__WEBPACK_IMPORTED_MODULE_13__.Storage.get({ key: 'subsidiary' }).then((subsidiary) => (0,tslib__WEBPACK_IMPORTED_MODULE_18__.__awaiter)(this, void 0, void 0, function* () {
                 this.subsidiary = JSON.parse(subsidiary.value);
-                console.log('getSubsidiary: ', this.subsidiary);
+                // console.log('getSubsidiary 1: ', this.subsidiary);
                 yield this.getListProductSubsidiaryB2BMobile();
-                console.log('getSubsidiary: ', subsidiary.value);
+                // console.log('getSubsidiary 2: ', subsidiary.value);
                 yield this.getLastB2bSubsiduary(this.subsidiary.id);
                 this.cortar_string(this.subsidiary.all.address);
+                console.log("cod_local", this.subsidiary.all.cod_local);
                 this.loading = false;
             }));
             // this.storage.get('subsidiary').then(async (subsidiary: any) => {
