@@ -2669,6 +2669,16 @@ let DeliveryServicesService = class DeliveryServicesService {
         console.log(this.url + 'publishv2/', dataDelivery);
         return this.http.post(this.url + 'publishv2/', dataDelivery, { headers: headers }).toPromise();
     }
+    actualizaDatos(dataDelivery) {
+        /*
+        actualiza datos en backend
+        DPW
+        */
+        console.log('envio-datos-dpw: ', dataDelivery);
+        let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
+        console.log(this.url + 'subsidiary-stock/', dataDelivery);
+        return this.http.put(this.url + 'subsidiary-stock/', dataDelivery, { headers: headers }).toPromise();
+    }
     publishPhoto(data) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
         return this.http.post(this.url + 'publish-photo/', data, { headers: headers }).toPromise();

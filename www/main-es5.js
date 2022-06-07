@@ -4722,6 +4722,20 @@
             }).toPromise();
           }
         }, {
+          key: "actualizaDatos",
+          value: function actualizaDatos(dataDelivery) {
+            /*
+            actualiza datos en backend
+            DPW
+            */
+            console.log('envio-datos-dpw: ', dataDelivery);
+            var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
+            console.log(this.url + 'subsidiary-stock/', dataDelivery);
+            return this.http.put(this.url + 'subsidiary-stock/', dataDelivery, {
+              headers: headers
+            }).toPromise();
+          }
+        }, {
           key: "publishPhoto",
           value: function publishPhoto(data) {
             var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());

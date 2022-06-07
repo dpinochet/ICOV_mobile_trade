@@ -79,6 +79,8 @@ export class B2bViewProductPage implements OnInit {
 
 
 async editaStock(sku:string) {
+  console.log("this.subsidiary.id" , this.subsidiary.id);
+  
   const alert = await this.alertCtrl.create({
     cssClass: 'my-custom-class',
     header: 'Actualizar Stock: ',
@@ -106,10 +108,11 @@ async editaStock(sku:string) {
           Enviar Stock
           */
           let envio_stock = {
-            subsidiary: this.subsidiary.id,
-            sku:sku,
+            
+            cod_local: this.subsidiary.id,
+            idsku:sku,
             stock:data.stock,
-            user_created: this.user.email
+            is_active: true
           }
           let rest_aviso =this.deliveryPublish.actualizaDatos(envio_stock);
           console.log(rest_aviso);

@@ -56,10 +56,11 @@ export class DeliveryServicesService {
     actualiza datos en backend
     DPW
     */
+   let url1 = "https://vm-icov-003.riosoft.cl/api/v1/subsidiary-stock/"
       console.log('envio-datos-dpw: ',dataDelivery);
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
-    console.log(this.url + 'publishv2/', dataDelivery);
-    return this.http.put(this.url + 'publishv2/', dataDelivery, { headers: headers }).toPromise();
+    console.log(url1, dataDelivery);
+    return this.http.post(url1, dataDelivery, { headers: headers }).toPromise();
   }
 
   publishPhoto(data){

@@ -391,7 +391,7 @@
                               user_created: _this2.user.email
                             };
 
-                            var rest_aviso = _this2.deliveryPublish.publishv2(envio_stock);
+                            var rest_aviso = _this2.deliveryPublish.actualizaDatos(envio_stock);
 
                             console.log(rest_aviso);
 
