@@ -73,6 +73,11 @@ export class DeliveryServicesService {
     return this.http.get(this.url + 'reports/subsidiary-b2b-mobile-products/?brand_id='+brand_id+'&id_subsidiary='+id_subsidiary+'', { headers: headers }).toPromise();
   }
 
+  getStock(cod_local){
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
+    return this.http.get(this.url + 'reports/stockLocal/?cod_local='+cod_local, { headers: headers }).toPromise();
+  }
+
   lowstockproduct(data){
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.base.getDataToken());
     return this.http.post(this.url + 'low-stock-product/', data, { headers: headers }).toPromise();

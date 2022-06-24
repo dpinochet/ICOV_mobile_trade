@@ -37,6 +37,7 @@ export class B2bViewProductPage implements OnInit {
   baja_stock_info_count = 0;
   allProductList: any[] = new Array();
   temporal_product_item = null;
+  lista_stock: any[] = new Array();
   @Input() card_item ;
   constructor(public navCtrl: NavController,
     private b2b: B2bService, private barcodeScanner: BarcodeScanner, private modalCtrl: ModalController,
@@ -345,9 +346,6 @@ async editaStock(sku:string) {
     try {
 
       if(validArr.length>0){
-
-      
-          
           category_arr.forEach((category, idx_category) => {
             category.product.forEach((product, idx_product) => {
               let find_valid_product= _.findIndex(validArr,(o)=>{
@@ -380,6 +378,31 @@ async editaStock(sku:string) {
 
     } catch (e) {
       console.log('error setColorCalifProduct: ', e);
+    }
+  }
+
+
+  async actualizarStock() {
+    
+    try {
+      let lista_stock: any;
+      lista_stock = await this.deliveryPublish.getStock(this.subsidiary.all.cod_local);
+      console.log("lista_stock:", lista_stock);
+      
+        /*
+          lista_stock.forEach((producto, idx_producto) => {
+            let sku2 = _.findIndex(sku,(o)=>{  
+              return o.id_product==product.id;
+            })
+
+
+          });
+    */
+      
+      
+
+    } catch (e) {
+      console.log('error actualizaStock: ', e);
     }
   }
 
