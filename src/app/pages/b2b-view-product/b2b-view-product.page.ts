@@ -14,6 +14,7 @@ import { UserServicesService } from 'src/app/services/user-services.service';
 import { DeliveryServicesService } from 'src/app/services/delivery-services.service';
 import { ComunicacionComponentService } from 'src/app/services/comunicacion-component.service';
 import { Camera, CameraResultType,CameraSource } from '@capacitor/camera';
+//import { Console } from 'console';
 
 
 @Component({
@@ -382,22 +383,31 @@ async editaStock(sku:string) {
   }
 
 
-  async actualizarStock() {
+  async actualizarStock(sku:number) {
     
     try {
       let lista_stock: any;
+      let somethingIsNotString:any;
+      let s1:number = sku;
+      let s2:number;
+      let stock:any = [];
       lista_stock = await this.deliveryPublish.getStock(this.subsidiary.all.cod_local);
       console.log("lista_stock:", lista_stock);
       
-        /*
-          lista_stock.forEach((producto, idx_producto) => {
-            let sku2 = _.findIndex(sku,(o)=>{  
-              return o.id_product==product.id;
-            })
-
-
-          });
-    */
+        console.log("Inicio rutina:");
+      
+        lista_stock.forEach((info, idx_category) => {
+          s2 = info.idsku;
+          if (s1 === s2) {
+            stock.push(info.stock);
+           // console.log("Encontré SKU Stock", info);
+          }
+          else {
+          //  console.log("array: " + info.idsku +  " Parametro: " + s1); 
+          }
+        });
+        console.log("Stock final: " + stock[stock.length -1]);
+    
       
       
 

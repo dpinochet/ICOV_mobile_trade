@@ -67,7 +67,7 @@
                   <p>Stock: {{producto?.stock}} <ion-icon name="create-outline" (click)="editaStock(producto?.idsku);"></ion-icon></p>
                   <p>Precio: {{producto?.value}}</p>
                  
-                  <ion-button (click)="actualizarStock()">Prueba </ion-button>
+                  
                 </ion-item>
                 <!-- <ion-item-options side="left">
                       <button ion-button (click)="favorite(item)">Favorite</button>
@@ -116,7 +116,7 @@
                           <p>Ventas: {{producto?.sales}}</p>
                           <p>Stock: {{producto?.stock}} <ion-icon name="create-outline" (click)="editaStock(producto?.idsku);"></ion-icon></p>
                           <p>Precio: {{producto?.value}}</p>
-                         
+                          <ion-button (click)="actualizarStock(producto?.idsku)">Prueba </ion-button>
                            </ion-label>
                         </ion-item> 
                         <!-- <ion-item-options side="left">
