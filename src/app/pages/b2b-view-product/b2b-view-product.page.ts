@@ -149,7 +149,7 @@ async editaStock(sku:string) {
           Enviar Stock
           */
           if (data.stock < 0) {
-            this.showAlert("Actualizar Stock", "El stock no puede ser negativo. Verifique nuevamente", ['OK']);
+            this.showAlert("Validación del stock", "El stock no puede ser negativo. Verifique nuevamente", ['OK']);
           }
           else {
           let envio_stock = {
@@ -160,7 +160,7 @@ async editaStock(sku:string) {
             is_active: true
           }
           this.deliveryPublish.actualizaDatos(envio_stock).then((res) => {
-            this.showAlert('Envío stock', 'Se ha enviado Stock', ['OK']);
+            this.showAlert('Actualización del Stock', 'Se ha enviado Stock', ['OK']);
             this.lista_stock = null;
             this.categorias_productos = null;
             this.initt();

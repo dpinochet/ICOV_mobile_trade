@@ -401,8 +401,8 @@ export class HomePage implements OnInit {
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
     // DPW
-      this.latitude = -33.4403959;
-      this.longitude = -70.6340178;
+    //  this.latitude = -33.4403959;
+    //  this.longitude = -70.6340178;
 
 
       this.zoom = 15;
