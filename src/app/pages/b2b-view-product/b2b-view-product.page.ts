@@ -24,6 +24,7 @@ import { Camera, CameraResultType,CameraSource } from '@capacitor/camera';
 })
 export class B2bViewProductPage implements OnInit {
   public base64Image: any;
+  public lista_stock: any;
   loading = true;
   subsidiary = null;
   direccion_subsidiary_arr: any[] = new Array();
@@ -38,7 +39,6 @@ export class B2bViewProductPage implements OnInit {
   baja_stock_info_count = 0;
   allProductList: any[] = new Array();
   temporal_product_item = null;
-  lista_stock: any[] = new Array();
   @Input() card_item ;
   constructor(public navCtrl: NavController,
     private b2b: B2bService, private barcodeScanner: BarcodeScanner, private modalCtrl: ModalController,
@@ -148,6 +148,10 @@ async editaStock(sku:string) {
           /*
           Enviar Stock
           */
+          if (data.stock < 0) {
+            this.showAlert("Actualizar Stock", "El stock no puede ser negativo. Verifique nuevamente", ['OK']);
+          }
+          else {
           let envio_stock = {
             code_local: this.subsidiary.all.cod_local,
             cod_local: this.subsidiary.all.cod_local,
@@ -155,12 +159,14 @@ async editaStock(sku:string) {
             stock:data.stock,
             is_active: true
           }
-          let rest_aviso =this.deliveryPublish.actualizaDatos(envio_stock);
-          console.log(rest_aviso);
-          this.showAlert('Envío stock', 'Se ha enviado Stock', ['OK']);
-          this.getCategoriaProductos();
+          this.deliveryPublish.actualizaDatos(envio_stock).then((res) => {
+            this.showAlert('Envío stock', 'Se ha enviado Stock', ['OK']);
+            this.lista_stock = null;
+            this.categorias_productos = null;
+            this.initt();
+          } );
           
-
+        } // fin validacion stock
 
         }
       }
@@ -383,18 +389,54 @@ async editaStock(sku:string) {
   }
 
 
-  async actualizarStock(sku:number) {
+  async obtenerStock() {
     
-    try {
-      let lista_stock: any;
-      let somethingIsNotString:any;
+    try {    
+      this.lista_stock = await this.deliveryPublish.getStock(this.subsidiary.all.cod_local);
+      
+
+      console.log(this.lista_stock);
+    } catch (e) {
+      console.log('error actualizaStock: ', e);
+    }
+  }
+
+  async getStock2() {
+    
+          let sku:any;
+          await this.categorias_productos.forEach((category, idx_category) => {
+            category.product.forEach((product, idx_product) => {
+             
+                sku = this.categorias_productos[idx_category].product[idx_product].idsku;
+                 this.getStock(sku).then(res =>{
+                  this.categorias_productos[idx_category].product[idx_product].stock = res
+                } );
+            
+            
+    
+            });
+          });
+    
+      
+  }
+
+  
+
+
+
+    getStock(sku:number): Promise<any> {
+
+    return new Promise<any>(resolve => {
+      
+
+      let lista_stock: any = null;
+      let stock_final:number;
       let s1:number = sku;
       let s2:number;
       let stock:any = [];
-      lista_stock = await this.deliveryPublish.getStock(this.subsidiary.all.cod_local);
-      console.log("lista_stock:", lista_stock);
+      lista_stock = this.lista_stock;
       
-        console.log("Inicio rutina:");
+       // console.log("Inicio rutina:");
       
         lista_stock.forEach((info, idx_category) => {
           s2 = info.idsku;
@@ -406,25 +448,22 @@ async editaStock(sku:string) {
           //  console.log("array: " + info.idsku +  " Parametro: " + s1); 
           }
         });
-        console.log("Stock final: " + stock[stock.length -1]);
-    
-      
-      
+        stock_final = stock[stock.length -1];
+        resolve(stock_final);
 
-    } catch (e) {
-      console.log('error actualizaStock: ', e);
-    }
+
+        });
+
+
+
   }
 
 
  ionViewDidLoad() {
 
-
-
     setTimeout(() => {
       this.initt();
       //})
-
     }, 2000);
 
 
@@ -442,10 +481,12 @@ async editaStock(sku:string) {
         this.subsidiary = JSON.parse(value.value);
  
         // await this.getListProductSubsidiaryB2BMobile();
+        await this.obtenerStock();
+       
         await this.getCategoriaProductos();
         await this.getLastB2bSubsiduary();
-
-        console.log('getSubsidiary: ', this.subsidiary);
+        await this.getStock2();
+        //console.log('getSubsidiary: ', this.subsidiary);
         this.loading = false;
   }
 
