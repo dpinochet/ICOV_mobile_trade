@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'mobile-trade',
+  appId: 'trade.comercialarroba.cl',
+  appName: 'Red Trade',
   webDir: 'www',
   bundledWebRuntime: false,
   plugins: {
